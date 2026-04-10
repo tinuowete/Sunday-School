@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Eden · Sunday School Teacher Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B3A6B;--navy2:#2A5A9C;--amber:#C8860A;--amber2:#F0A820;--rose:#B84060;--teal:#1A7A6A;--teal2:#2AAA94;--cream:#FBF7EE;--cream2:#F0E8D0;--dark:#12182E;--mid:#5A5A7A}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--dark);min-height:100vh;font-size:15px}
+.screen{display:none}.screen.active{display:block}
+.hdr{background:var(--navy);color:#fff;padding:14px 18px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:200;box-shadow:0 3px 16px rgba(0,0,0,.3)}
+.logo{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:900;flex:1;line-height:1.15}
+.logo span{display:block;font-size:.72rem;font-family:'Nunito',sans-serif;font-weight:400;opacity:.65}
+.back-btn{background:rgba(255,255,255,.12);border:none;color:#fff;width:38px;height:38px;border-radius:9px;cursor:pointer;font-size:1.15rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s}
+.back-btn:hover{background:rgba(255,255,255,.25)}
+.wrap{padding:20px 18px;max-width:700px;margin:0 auto}
+/* HOME */
+.eden-hero{background:linear-gradient(150deg,var(--navy),var(--navy2));border-radius:20px;padding:32px 20px;text-align:center;color:#fff;margin-bottom:22px}
+.eden-hero h1{font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:6px}
+.eden-hero p{font-size:.88rem;opacity:.8;line-height:1.6}
+.class-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px}
+.ccard{background:#fff;border-radius:18px;padding:24px 16px;text-align:center;cursor:pointer;border:3px solid transparent;box-shadow:0 4px 18px rgba(0,0,0,.08);transition:all .22s}
+.ccard:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.14)}
+.ccard.baby{border-color:var(--rose)}.ccard.big{border-color:var(--teal)}
+.ccard .icon{font-size:2.6rem;margin-bottom:10px;display:block}
+.ccard h3{font-family:'Playfair Display',serif;font-size:1rem;color:var(--navy);margin-bottom:4px}
+.ccard p{font-size:.76rem;color:var(--mid)}
+/* MONTH / WEEK */
+.month-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
+.mbtn{background:#fff;border:2.5px solid var(--cream2);border-radius:13px;padding:16px 8px 14px;cursor:pointer;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.06);transition:all .2s}
+.mbtn:hover{border-color:var(--amber);transform:translateY(-2px)}
+.mbtn .mname{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--navy);display:block}
+.mbtn .mtheme{font-size:.67rem;color:var(--mid);display:block;margin-top:4px;line-height:1.3}
+.mhdr{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:16px;padding:20px 18px;margin-bottom:18px}
+.mhdr h2{font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:3px}
+.mhdr .mtheme-txt{font-family:'Playfair Display',serif;font-style:italic;font-size:.92rem;opacity:.85;margin-bottom:6px}
+.mhdr .mbible{font-size:.73rem;opacity:.6}
+.week-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.wbtn{background:#fff;border:2.5px solid var(--cream2);border-radius:14px;padding:18px 13px;cursor:pointer;text-align:center;transition:all .2s;box-shadow:0 2px 9px rgba(0,0,0,.06)}
+.wbtn:hover{border-color:var(--amber);transform:translateY(-2px)}
+.wbtn.orient{border-color:var(--rose);background:#fff5f7}
+.wbtn.rev{border-color:var(--amber2);background:#fffbf0}
+.wbtn.locked{opacity:.5;cursor:default}
+.wnum{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--navy);display:block}
+.wbtn.orient .wnum{color:var(--rose)}.wbtn.rev .wnum{color:var(--amber)}
+.wtitle{font-size:.8rem;font-weight:700;display:block;margin:6px 0 3px;line-height:1.3;color:var(--dark)}
+.wbible{font-size:.7rem;color:var(--mid);font-style:italic}
+/* TABS */
+.tab-bar{display:flex;gap:7px;padding:0 18px 14px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tab-bar::-webkit-scrollbar{height:3px}
+.tbtn{background:#fff;border:2px solid var(--cream2);border-radius:20px;padding:8px 16px;cursor:pointer;font-family:'Playfair Display',serif;font-size:.82rem;font-weight:700;color:var(--mid);white-space:nowrap;transition:all .2s}
+.tbtn.active{background:var(--navy);border-color:var(--navy);color:#fff}
+.tpanel{display:none;padding:0 18px 30px}.tpanel.active{display:block}
+.lhdr{padding:16px 18px 0}
+.lhdr h2{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--navy);margin-bottom:3px}
+.lhdr .lbible{font-size:.8rem;color:var(--mid);font-style:italic}
+/* CARDS */
+.card{background:#fff;border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,.07)}
+.card h3{font-family:'Playfair Display',serif;font-size:1rem;color:var(--navy);margin-bottom:13px;padding-bottom:10px;border-bottom:2.5px solid var(--cream2)}
+/* LESSON BOXES */
+.bigidea{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:11px;padding:15px 16px;margin-bottom:13px;font-weight:700;font-size:.93rem;line-height:1.55}
+.phrase-box{background:linear-gradient(135deg,var(--rose),#d4607a);color:#fff;border-radius:11px;padding:13px 16px;margin-bottom:13px;text-align:center}
+.phrase-label{font-size:.68rem;opacity:.85;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:4px}
+.phrase-text{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700}
+.verse-box{background:linear-gradient(135deg,var(--teal),var(--teal2));color:#fff;border-radius:11px;padding:14px 16px;margin-bottom:13px}
+.verse-text{font-family:'Playfair Display',serif;font-style:italic;font-size:.9rem;line-height:1.65;margin-bottom:5px}
+.verse-ref{font-size:.74rem;opacity:.85;font-weight:700}
+.script-block{background:#f9f5e8;border-radius:12px;padding:16px;font-size:.87rem;line-height:1.9}
+.script-step{margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #e8dfcc}
+.script-step:last-child{margin:0;padding:0;border:none}
+.action-cue{background:var(--amber2);color:#4a2800;padding:2px 9px;border-radius:5px;font-size:.76rem;font-weight:800;font-style:italic}
+.stop-block{background:#e8f5f2;border-left:4px solid var(--teal);border-radius:0 9px 9px 0;padding:10px 13px;margin:10px 0;font-size:.85rem}
+.stop-label{font-weight:800;color:var(--teal);font-size:.72rem;text-transform:uppercase;display:block;margin-bottom:3px}
+.step-block{display:flex;gap:13px;margin-bottom:14px;align-items:flex-start}
+.step-num{background:var(--amber);color:#fff;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.82rem;flex-shrink:0;margin-top:2px}
+.step-body strong{font-family:'Playfair Display',serif;display:block;color:var(--navy);font-size:.9rem;margin-bottom:4px}
+.step-body p{font-size:.85rem;line-height:1.65;color:var(--mid)}
+.step-discuss{background:#fff8e8;border-radius:8px;padding:8px 12px;margin-top:7px;font-size:.8rem;color:#6a4000;font-style:italic}
+.step-ex{border-left:3px solid var(--amber2);padding:6px 11px;margin-top:6px;font-size:.8rem;color:var(--mid)}
+.dq{background:var(--cream);border-left:3px solid var(--teal);border-radius:0 8px 8px 0;padding:9px 13px;margin-bottom:8px;font-size:.85rem;line-height:1.5}
+.obj{display:flex;gap:9px;margin-bottom:8px;align-items:flex-start;font-size:.85rem;line-height:1.55}
+.obj-dot{color:var(--teal);font-weight:800;flex-shrink:0}
+.la-item{display:flex;gap:10px;margin-bottom:9px;align-items:flex-start}
+.la-dot{width:10px;height:10px;background:var(--amber);border-radius:50%;margin-top:5px;flex-shrink:0}
+.la-k{font-weight:800;color:var(--navy);font-size:.85rem}
+.la-v{font-size:.84rem;color:var(--mid);line-height:1.6;margin-top:2px}
+/* VOCAB */
+.vocab-row{display:flex;gap:13px;padding:9px 0;border-bottom:1px solid var(--cream2)}
+.vocab-word{font-weight:800;color:var(--navy);min-width:115px;font-size:.85rem;font-family:'Playfair Display',serif}
+.vocab-def{font-size:.83rem;color:var(--mid);line-height:1.5}
+/* CLASS NOTES - bullet point style */
+.cn-note{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--cream2);align-items:flex-start}
+.cn-bullet{color:var(--navy);font-weight:800;font-size:1rem;flex-shrink:0;margin-top:1px}
+.cn-text{font-size:.87rem;line-height:1.65;color:var(--dark)}
+.cn-sub{margin-top:5px;padding-left:6px}
+.cn-sub-item{display:flex;gap:8px;margin-bottom:4px;font-size:.83rem;color:var(--mid);line-height:1.55}
+.cn-sub-bullet{color:var(--amber);flex-shrink:0}
+/* CLASSWORK - unified */
+.cw-q{background:var(--cream);border-radius:10px;padding:13px 14px;margin-bottom:11px}
+.cw-qn{font-weight:800;color:var(--navy);font-size:.74rem;text-transform:uppercase;margin-bottom:4px;display:flex;gap:8px;align-items:center}
+.cw-type-badge{background:var(--navy);color:#fff;border-radius:10px;padding:2px 9px;font-size:.65rem;font-weight:700}
+.cw-qt{font-size:.88rem;margin-bottom:8px;line-height:1.55;color:var(--dark)}
+.cw-opts{font-size:.83rem;color:var(--mid);line-height:1.9;padding-left:4px}
+.cw-opt{display:flex;gap:10px;align-items:flex-start;margin-bottom:4px}
+.cw-opt-letter{font-weight:800;color:var(--navy);width:18px;flex-shrink:0}
+.ans-btn{background:none;border:1.5px solid var(--teal);color:var(--teal);padding:4px 13px;border-radius:20px;font-size:.73rem;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;margin-top:6px}
+.ans-box{background:#e8f5f2;border-radius:8px;padding:8px 12px;margin-top:8px;font-size:.82rem;color:var(--teal);font-weight:700;display:none}
+.write-line{border-bottom:1.5px solid var(--cream2);height:28px;margin:6px 0}
+/* TAKE HOME */
+.th-section{border-left:4px solid var(--rose);background:#fff;border-radius:0 12px 12px 0;padding:14px 16px;margin-bottom:13px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.th-section h4{font-family:'Playfair Display',serif;color:var(--rose);margin-bottom:9px;font-size:.95rem}
+.th-section ul{padding-left:18px;list-style:disc}
+.th-section ul li{font-size:.85rem;line-height:1.7;margin-bottom:2px}
+.th-section p{font-size:.85rem;line-height:1.7}
+.prayer-box{background:linear-gradient(135deg,#ffeef3,#fff5f7);border-radius:10px;padding:14px;font-style:italic;font-size:.87rem;color:var(--rose);line-height:1.7;margin-top:9px;border:1px solid #ffd5de}
+/* PROMPT BOX - for AI image generation */
+.prompt-card{background:#fff;border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,.07);border-left:5px solid var(--amber)}
+.prompt-card h3{font-family:'Playfair Display',serif;font-size:1rem;color:var(--navy);margin-bottom:4px}
+.prompt-card .prompt-desc{font-size:.8rem;color:var(--mid);margin-bottom:13px;line-height:1.5}
+.prompt-box{background:#f9f5e8;border:1.5px dashed var(--amber);border-radius:10px;padding:14px;font-size:.83rem;line-height:1.75;color:var(--dark);position:relative;margin-bottom:10px;white-space:pre-wrap;word-break:break-word}
+.copy-btn{background:var(--amber);color:#fff;border:none;border-radius:9px;padding:9px 16px;font-family:'Playfair Display',serif;font-size:.82rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;margin-bottom:12px;transition:all .2s}
+.copy-btn:hover{filter:brightness(1.1)}
+.copy-confirm{display:none;font-size:.78rem;color:var(--teal);font-weight:700;margin-left:10px;vertical-align:middle}
+/* PRINT BUTTONS */
+.pbtn{background:var(--navy);color:#fff;border:none;border-radius:11px;padding:13px 18px;font-family:'Playfair Display',serif;font-size:.9rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .2s;width:100%;justify-content:center;margin-bottom:10px}
+.pbtn:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.pbtn.rose{background:var(--rose)}.pbtn.teal{background:var(--teal)}.pbtn.amber{background:var(--amber)}
+.info-box{background:#fffbf0;border-left:3.5px solid var(--amber);border-radius:0 9px 9px 0;padding:11px 13px;margin-bottom:13px;font-size:.82rem;color:#5a3800}
+.orient-card{background:linear-gradient(135deg,var(--rose),#d4607a);color:#fff;border-radius:16px;padding:26px;text-align:center}
+.orient-card h3{font-family:'Playfair Display',serif;font-size:1.15rem;margin-bottom:10px}
+.orient-card p{font-size:.86rem;opacity:.92;line-height:1.65}
+.rev-card{background:linear-gradient(135deg,var(--amber),var(--amber2));color:#fff;border-radius:16px;padding:26px;margin-bottom:14px}
+.rev-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:12px}
+.rev-topic{background:rgba(255,255,255,.2);border-radius:8px;padding:8px 12px;margin-bottom:7px;font-size:.84rem}
+.div{height:1px;background:var(--cream2);margin:14px 0}
+.coming{text-align:center;padding:40px 20px;background:#fff;border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.07);grid-column:1/-1}
+.coming .ci{font-size:3rem;margin-bottom:14px}
+.coming h3{font-family:'Playfair Display',serif;color:var(--navy);margin-bottom:8px}
+.coming p{color:var(--mid);font-size:.88rem;line-height:1.6}
+@media(max-width:420px){.class-cards{grid-template-columns:1fr 1fr}.month-grid{grid-template-columns:repeat(2,1fr)}.week-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<!-- HOME -->
+<div id="sc-home" class="screen active">
+  <div class="hdr"><div class="logo">✝ Eden<span>Sunday School Teacher Hub</span></div></div>
+  <div class="wrap">
+    <div class="eden-hero"><div style="font-size:3rem;margin-bottom:10px">📖</div><h1>Welcome, Teacher!</h1><p>Everything you need is right here. Tap your class, pick the month, choose the week — and you’re ready to teach!</p></div>
+    <p style="font-family:'Playfair Display',serif;font-size:.95rem;color:var(--navy);text-align:center;margin-bottom:14px;font-weight:700">Which class are you teaching today?</p>
+    <div class="class-cards">
+      <div class="ccard baby" onclick="selectClass('garden')"><span class="icon">🌱</span><h3>God’s Little Garden</h3><p>Ages 0 – 5</p></div>
+      <div class="ccard big" onclick="selectClass('bearers')"><span class="icon">💡</span><h3>Light Bearers</h3><p>Ages 5 – 10</p></div>
+    </div>
+    <div style="background:#fff;border-radius:14px;padding:16px 18px;text-align:center;box-shadow:0 2px 9px rgba(0,0,0,.07)"><p style="font-size:.8rem;color:var(--mid);line-height:1.7">📅 <strong>Year:</strong> April 2026 – March 2027 &nbsp;|&nbsp; 📖 <strong>Bible:</strong> International Children’s Bible (ICB) &nbsp;|&nbsp; 🕊️ Church of Christ</p></div>
+  </div>
+</div>
+<!-- MONTH -->
+<div id="sc-month" class="screen">
+  <div class="hdr"><button class="back-btn" onclick="goHome()">←</button><div class="logo" id="hdr-class">Class<span>Choose a month</span></div></div>
+  <div class="wrap"><div class="month-grid" id="month-grid"></div></div>
+</div>
+<!-- WEEK -->
+<div id="sc-week" class="screen">
+  <div class="hdr"><button class="back-btn" onclick="showMonths()">←</button><div class="logo" id="hdr-month">Month<span>Choose a week</span></div></div>
+  <div class="wrap"><div id="month-hdr-card"></div><div class="week-grid" id="week-grid"></div></div>
+</div>
+<!-- LESSON -->
+<div id="sc-lesson" class="screen">
+  <div class="hdr"><button class="back-btn" onclick="showWeeks()">←</button><div class="logo" id="hdr-lesson">Lesson<span id="hdr-crumb"></span></div></div>
+  <div class="lhdr"><h2 id="lesson-title"></h2><p class="lbible" id="lesson-bible"></p></div>
+  <div class="tab-bar" id="tab-bar"></div>
+  <div id="tab-panels"></div>
+</div>
+<script>
+
+
+const MONTHS=[
+  {id:'april',    n:'April',    theme:'A Brand New Start',             bible:'Genesis 11\u201312'},
+  {id:'may',      n:'May',      theme:"God's Promises Never Fail",     bible:'Genesis 13\u201325'},
+  {id:'june',     n:'June',     theme:'Tested and Transformed',        bible:'Genesis 22\u201350'},
+  {id:'july',     n:'July',     theme:'God Provides When We Are Lost', bible:'Genesis 37\u201350'},
+  {id:'august',   n:'August',   theme:'God Rescues His People',        bible:'Exodus 1\u201320'},
+  {id:'september',n:'September',theme:"Living as God's People",        bible:'Exodus 25 \u2013 Numbers 14'},
+  {id:'october',  n:'October',  theme:'Be Strong and Courageous',      bible:'Joshua 1\u201324'},
+  {id:'november', n:'November', theme:'When We Need a Hero',           bible:'Judges, Ruth'},
+  {id:'december', n:'December', theme:'God Chooses the Humble',        bible:'1 Samuel 1\u201320'},
+  {id:'january',  n:'January',  theme:'The Wisest King',               bible:'1 Kings 1\u201311'},
+  {id:'february', n:'February', theme:'God Speaks \u2014 Will We Listen?',  bible:'1 Kings 16\u201319; Jonah; Daniel'},
+  {id:'march',    n:'March',    theme:"God's Story Is Not Finished",   bible:'Daniel; Esther; Nehemiah; Isaiah'}
+];
+
+// ══════════ GOD'S LITTLE GARDEN DATA ══════════
+const GARDEN={
+  april:{
+    w1:{type:'orientation'},
+    w2:{
+      title:'The Big Tower',bible:'Genesis 11:1\u20139 (ICB)',
+      bigidea:'God is always in charge \u2014 even when people forget Him!',
+      phrase:'God sees us!',
+      script:[
+        {t:'Long ago, everyone in the whole world spoke the same language. They could ALL understand each other! ',cue:'Say \u201cHello friend!\u201d and wave to a neighbour'},
+        {t:'One day the people found a flat piece of land and said: \u201cLet\u2019s build a tower SO tall it reaches the sky!\u201d ',cue:'STRETCH both arms up as high as you can!'},
+        {t:'They thought if their tower reached the sky, they could be as great as God. So they started building \u2014 brick by brick! ',cue:'PRETEND to stack heavy bricks'},
+        {t:'But God looked down from heaven and He SAW what the people were doing. ',cue:'SHADE eyes and peer down dramatically'},
+        {t:'God said: \u201cThe people are forgetting about Me.\u201d So He changed all their words! ',cue:'MAKE silly sounds: \u201cBloo-ba! Kala-moo!\u201d Look confused!'},
+        {t:'Suddenly no one could understand each other! The building stopped and people spread all over the earth. ',cue:'SPREAD arms wide like a big hug'},
+        {t:'Even when people forget God \u2014 GOD is still in charge! ',cue:'EVERYONE SAY together: \u201cGod sees us!\u201d'}
+      ],
+      comprehension:['\ud83c\udfd7\ufe0f What were the people building?','\ud83d\udc40 Did God know what they were doing?','\ud83d\udcac What did God change to stop the building?'],
+      lifeapp:[
+        {k:'God loves you like\u2026',v:'a parent who always has an eye on you, even when you\u2019re playing far away.'},
+        {k:'You can trust God when\u2026',v:'you feel like nobody notices you. God always sees!'},
+        {k:'God helps you with\u2026',v:'remembering to think about Him even when you\u2019re busy having fun!'}
+      ],
+      coloringPrompt:`BLACK AND WHITE COLOURING PAGE for children aged 0\u20133.
+
+SCENE: The Tower of Babel (Bible story, Genesis 11).
+
+WHAT TO DRAW:
+\u2022 A very tall tower in the centre of the page, built from big brick blocks, reaching up toward the sky
+\u2022 4\u20135 simple cartoon people at the base and sides of the tower looking confused and pointing at each other
+\u2022 Speech bubbles above the people filled with \u201c???\u201d and squiggly lines (to represent different languages)
+\u2022 A large cloud at the top with an eye shape inside it (representing God watching from heaven)
+\u2022 A simple hilly landscape in the background
+
+STYLE REQUIREMENTS:
+\u2022 Black outlines only \u2014 NO colour, NO shading, NO grey fills
+\u2022 Very thick bold outlines (suitable for toddlers to colour)
+\u2022 Simple, round, friendly cartoon figures \u2014 not realistic
+\u2022 Lots of open white space inside each shape for colouring
+\u2022 A4 portrait layout
+\u2022 Leave a blank white header area at the top for NAME and DATE fields
+
+DO NOT include: colour, text labels, Bible references, or decorative borders.`,
+      activityPrompt:`BLACK AND WHITE ACTIVITY WORKSHEET for children aged 4\u20135 (pre-readers).
+
+ACTIVITY TYPE: \u201cFIND AND CIRCLE\u201d worksheet.
+BIBLE STORY: The Tower of Babel (Genesis 11)
+
+LAYOUT (A4 portrait, top to bottom):
+\u2022 Large bold title at top: \u201cFIND AND CIRCLE\u201d
+\u2022 Subtitle line: \u201cCircle ONLY the things from the Tower of Babel story.\u201d
+\u2022 A blank NAME line and DATE line
+\u2022 Then a 4-row grid. Each row has 4 cartoon icons side by side.
+
+ROW CONTENTS (each row has 2 correct story items and 2 wrong distractors, mixed up randomly):
+Row 1: Tower (correct), Car (wrong), Person/figure (correct), Ice cream (wrong)
+Row 2: Bricks (correct), Football (wrong), Cloud with eye (correct), Lollipop (wrong)
+Row 3: Person (correct), Shoe (wrong), Tower (correct), Basketball (wrong)
+Row 4: Bricks (correct), Car (wrong), Cloud (correct), Ice cream (wrong)
+
+Under each icon: a short label in large bold text (e.g. \u201cTower\u201d, \u201cCar\u201d)
+
+STYLE REQUIREMENTS:
+\u2022 Black outlines only \u2014 NO colour, NO shading
+\u2022 Bold, simple, friendly cartoon drawings
+\u2022 Each icon clearly distinct and easy for a 4-year-old to recognise
+\u2022 A4 portrait layout
+\u2022 A short sentence at the bottom: \u201cGOD IS ALWAYS IN CHARGE!\u201d`,
+      takehome:{
+        story:['Today we learnt about the Tower of Babel.','Long ago people tried to build a giant tower to reach the sky because they wanted to be as great as God.','God saw what they were doing and changed their languages \u2014 so the building had to stop.','The people spread out all over the earth \u2014 just as God had always planned!','God is always watching and He is always in charge.'],
+        question:'Ask your child: \u201cWho is always in charge \u2014 even when people forget God?\u201d',
+        task:'Every morning this week, point up to the sky with your child and say: \u201cGod sees me!\u201d Let them know God is always with them.',
+        prayer:'Dear God, thank You that You always see us. Help us never to forget You. We know You are in charge of everything. Amen.'
+      }
+    },
+    w3:{
+      title:"God's Big Adventure",bible:'Genesis 12:1\u20139 (ICB)',
+      bigidea:'When God calls us to go somewhere new, He always goes with us!',
+      phrase:'God said go \u2014 Abram went!',
+      script:[
+        {t:'One day God spoke to a man called Abram. ',cue:'WHISPER dramatically: \u201cAbram! Abram!\u201d'},
+        {t:'\u201cAbram,\u201d God said, \u201cleave your home and go to a new land that I will show you.\u201d ',cue:'PAUSE \u2014 look surprised!'},
+        {t:'Abram didn\u2019t have a map! He didn\u2019t know exactly where he was going! ',cue:'SCRATCH head, make a confused face'},
+        {t:'But God made a HUGE promise: \u201cI will be with you and bless you \u2014 and through your family, ALL families on earth will be blessed!\u201d ',cue:'OPEN arms as wide as possible!'},
+        {t:'Abram was 75 years old \u2014 a very old man! But he trusted God and packed up everything. ',cue:'PRETEND to carry a very heavy bag, staggering!'},
+        {t:'He called his wife Sarai and nephew Lot and they started walking\u2026 and walking\u2026 and WALKING! ',cue:'MARCH in place together, big stomping steps!'},
+        {t:'When they arrived, God said \u201cThis is the land!\u201d Abram stopped and said THANK YOU to God. ',cue:'FOLD hands and bow head quietly'},
+        {t:'',cue:'EVERYONE SAY: \u201cGod said go \u2014 Abram WENT!\u201d'}
+      ],
+      comprehension:['\ud83d\udde3\ufe0f Who spoke to Abram?','\ud83e\uddf3 What did God ask Abram to do?','\ud83d\ude00 Did Abram obey God?'],
+      lifeapp:[
+        {k:'God loves you like\u2026',v:'a parent who says \u201cI know the way \u2014 just hold my hand and trust me!\u201d'},
+        {k:'You can trust God when\u2026',v:'you go somewhere new and feel a little scared. God already knows the way!'},
+        {k:'God helps you with\u2026',v:'being brave when things change \u2014 like a new school or a new home.'}
+      ],
+      coloringPrompt:`BLACK AND WHITE COLOURING PAGE for children aged 0\u20133.
+
+SCENE: Abram and Sarai leaving home on a journey (Bible story, Genesis 12).
+
+WHAT TO DRAW:
+\u2022 Abram (old man with a long robe and walking staff) in the centre, walking forward
+\u2022 Sarai (woman with a head covering) walking beside him
+\u2022 A loaded camel behind them carrying bags and bundles
+\u2022 A tent on the LEFT side of the page (where they came from)
+\u2022 A bright sun and several large stars in the sky above
+\u2022 A dotted path/road stretching ahead into the distance
+
+STYLE REQUIREMENTS:
+\u2022 Black outlines only \u2014 NO colour, NO shading, NO grey fills
+\u2022 Very thick bold outlines (suitable for toddlers to colour)
+\u2022 Simple, round, friendly cartoon figures
+\u2022 Lots of open white space inside each shape for colouring
+\u2022 A4 portrait layout
+\u2022 Leave a blank white header area at the top for NAME and DATE fields
+
+DO NOT include: colour, text labels, Bible references, or decorative borders.`,
+      activityPrompt:`BLACK AND WHITE ACTIVITY WORKSHEET for children aged 4\u20135 (pre-readers).
+
+ACTIVITY TYPE: \u201cMATCH THE SAME PICTURE\u201d worksheet.
+BIBLE STORY: God calls Abram (Genesis 12)
+
+LAYOUT (A4 portrait):
+\u2022 Large bold title at top: \u201cMATCH THE SAME PICTURE\u201d
+\u2022 Subtitle: \u201cDraw a line to match the same pictures.\u201d
+\u2022 NAME and DATE lines
+
+MATCHING GRID:
+Left column (top to bottom): Abram (walking man with staff), Tent, Camel, Star
+Right column (SCRAMBLED order, top to bottom): Star, Abram (walking man with staff), Tent, Camel
+
+Between each left icon and its matching right icon: a short horizontal line for the child to extend with their pencil when matching.
+
+STYLE REQUIREMENTS:
+\u2022 Black outlines only \u2014 NO colour, NO shading
+\u2022 Bold, simple, friendly cartoon drawings of each item
+\u2022 Clear enough for a 4-year-old to recognise each picture
+\u2022 A4 portrait layout
+\u2022 Bottom text: \u201cGOD SAID GO \u2014 ABRAM WENT!\u201d`,
+      takehome:{
+        story:['Today we learnt about Abram, who trusted God and went on a big adventure!','God called Abram to leave his home and travel to a brand new land.','Abram didn\u2019t know exactly where he was going \u2014 but he trusted God and obeyed.','God promised to be with Abram and bless him wherever he went.','We can be brave like Abram because God goes with us too!'],
+        question:'Ask your child: \u201cCan you remember a time you went somewhere new? God was with Abram \u2014 and God is with YOU too!\u201d',
+        task:'When your child feels nervous about something new this week, say together: \u201cGod said go, and God goes with us!\u201d Make it a little chant.',
+        prayer:'Dear God, thank You that You always show us the way. Help us to trust You like Abram trusted You. When we feel afraid of new things, help us remember You are with us. Amen.'
+      }
+    },
+    w4:{
+      title:'Stars Too Many To Count',bible:'Genesis 13:14\u201318; 15:5 (ICB)',
+      bigidea:'God makes big promises \u2014 and He always keeps every single one!',
+      phrase:'God always keeps His promises!',
+      script:[
+        {t:'Last week Abram heard God\u2019s voice and went on a big journey! ',cue:'MARCH in place, remembering last week'},
+        {t:'When Abram arrived in the new land, God said: \u201cTHIS land is for your family!\u201d ',cue:'SPREAD arms wide, point all around'},
+        {t:'Abram was so happy. He built a special altar \u2014 a little stone table \u2014 to say thank you to God. ',cue:'PRETEND to carefully stack stones'},
+        {t:'Then God said: \u201cAbram, look up at the sky! Can you COUNT all the stars?\u201d ',cue:'LOOK UP and count stars on fingers: 1\u20262\u20263\u2026too many!'},
+        {t:'\u201cYour family one day will be THAT big \u2014 too many to count!\u201d said God. ',cue:'Look AMAZED \u2014 open mouth wide and say \u201cWOW!\u201d'},
+        {t:'Abram believed God \u2014 even though he had no children yet! That\u2019s called FAITH! ',cue:'NOD your head slowly and say: \u201cI believe God!\u201d'},
+        {t:'God keeps ALL His promises \u2014 every single one! ',cue:'EVERYONE SAY: \u201cGod always keeps His promises!\u201d'}
+      ],
+      comprehension:['\u2b50 What did God say Abram\u2019s family would be like?','\ud83d\ude4f What did Abram build to say thank you?','\u2764\ufe0f Does God always keep His promises?'],
+      lifeapp:[
+        {k:'God loves you like\u2026',v:'a best friend who walks beside you every day and never ever leaves.'},
+        {k:'You can trust God when\u2026',v:'you feel lonely or far from home. God promises to always be WITH you.'},
+        {k:'God helps you with\u2026',v:'knowing that wherever you are \u2014 home, school, the market \u2014 God is right there.'}
+      ],
+      coloringPrompt:`BLACK AND WHITE COLOURING PAGE for children aged 0\u20133.
+
+SCENE: Abram looking up at a sky full of stars (Bible story, Genesis 15:5).
+
+WHAT TO DRAW:
+\u2022 Abram (old man in a long robe) standing in the centre of the page, looking up with arms stretched wide open in wonder
+\u2022 A huge night sky above him FILLED with many different-sized stars (at least 15\u201320 stars of different sizes)
+\u2022 A crescent moon on one side of the sky
+\u2022 A small stone altar (stack of rough stones) to one side with wavy smoke rising from it
+\u2022 Simple hills or ground at the bottom
+
+STYLE REQUIREMENTS:
+\u2022 Black outlines only \u2014 NO colour, NO shading, NO grey fills
+\u2022 Very thick bold outlines (suitable for toddlers to colour)
+\u2022 Stars should be large, bold, clearly outlined 5-pointed shapes \u2014 easy to colour
+\u2022 Simple, round, friendly cartoon figure of Abram
+\u2022 Lots of open white space inside each shape
+\u2022 A4 portrait layout
+\u2022 Leave a blank white header area at the top for NAME and DATE fields
+
+DO NOT include: colour, text labels, Bible references, or decorative borders.`,
+      activityPrompt:`BLACK AND WHITE ACTIVITY WORKSHEET for children aged 4\u20135 (pre-readers).
+
+ACTIVITY TYPE: \u201cFIND AND CIRCLE\u201d worksheet.
+BIBLE STORY: God\u2019s promise to Abram / Stars (Genesis 15:5)
+
+LAYOUT (A4 portrait, top to bottom):
+\u2022 Large bold title: \u201cFIND AND CIRCLE\u201d
+\u2022 Subtitle: \u201cCircle ONLY the things from today\u2019s Bible story.\u201d
+\u2022 NAME and DATE lines
+
+4-ROW GRID (each row has 4 cartoon icons):
+Row 1: Star (correct), Car (wrong), Person/Abram (correct), Ice cream (wrong)
+Row 2: Altar/stones (correct), Football (wrong), Star (correct), Lollipop (wrong)
+Row 3: Person (correct), Shoe (wrong), Moon (correct), Basketball (wrong)
+Row 4: Star (correct), Car (wrong), Tent (correct), Ice cream (wrong)
+
+Under each icon: a short label in large bold text
+
+STYLE: Black outlines only, bold cartoon, child-friendly, A4 portrait
+BOTTOM TEXT: \u201cGOD ALWAYS KEEPS HIS PROMISES!\u201d`,
+      takehome:{
+        story:['Today we learnt that God kept His promise to Abram!','God showed Abram the stars and said his family would be that big \u2014 too many to count!','Abram believed God even though he had no children yet. That is faith!','Wherever Abram went, God was always with him.','God\u2019s promises are always true \u2014 He never forgets!'],
+        question:'Ask your child: \u201cLook up at the sky tonight and count the stars. God made a promise as big as the stars \u2014 and He ALWAYS keeps it!\u201d',
+        task:'Before bed each night this week, say together: \u201cGod, thank You for being with me today.\u201d Make it your family night-time habit.',
+        prayer:'Dear God, thank You for making big promises and always keeping them. Thank You that You are with us wherever we go. Help us always remember that You never leave us. Amen.'
+      }
+    }
+  },
+  may:{
+    w1:{
+      title:'Abraham and Sarah Wait for a Baby',bible:'Genesis 18:1\u201315; 21:1\u20137 (ICB)',
+      bigidea:'God keeps His promises \u2014 even when we have to wait a long time!',
+      phrase:'God never forgets His promise!',
+      script:[
+        {t:'Abraham and Sarah wanted a baby more than anything in the world. But years went by and\u2026 no baby came. ',cue:'WAIT silently 3 seconds. Look a little sad.'},
+        {t:'One hot day, three visitors came to Abraham. Abraham ran out to welcome them and made them a big meal! ',cue:'PRETEND to run and carry a heavy plate of food'},
+        {t:'One of the visitors was God! And God said: \u201cBy this time next year, Sarah will have a baby boy!\u201d ',cue:'POINT one finger forward \u2014 to the future!'},
+        {t:'Sarah was listening inside the tent. She heard \u2014 and she LAUGHED because she thought she was too old! ',cue:'LAUGH out loud! Ha ha ha!'},
+        {t:'God asked: \u201cIs anything too hard for God?\u201d ',cue:'SHAKE head together \u2014 \u201cNO! Nothing is too hard for God!\u201d'},
+        {t:'And just like God promised \u2014 the very next year \u2014 Sarah had a BABY! His name was Isaac, which means \u201claughter\u201d! ',cue:'PRETEND to rock a baby and smile BIG'},
+        {t:'Sarah said: \u201cGod has made me laugh with joy!\u201d ',cue:'LAUGH with joy and CLAP your hands!'},
+        {t:'God remembered His promise. He always does! ',cue:'EVERYONE SAY: \u201cGod never forgets His promise!\u201d'}
+      ],
+      comprehension:['\ud83d\udc76 Who came to visit Abraham?','\ud83c\udf1f What did God promise Sarah?','\ud83d\ude04 What did they name the baby, and what does it mean?'],
+      lifeapp:[
+        {k:'God loves you like\u2026',v:'someone who always remembers every single thing they promised you \u2014 and never, ever forgets.'},
+        {k:'You can trust God when\u2026',v:'you have been waiting a long time for something. God has not forgotten!'},
+        {k:'God helps you with\u2026',v:'being patient when we have to wait \u2014 because God\u2019s timing is always perfect.'}
+      ],
+      coloringPrompt:`BLACK AND WHITE COLOURING PAGE for children aged 0\u20133.
+
+SCENE: Sarah holding baby Isaac, with Abraham standing beside her (Bible story, Genesis 21).
+
+WHAT TO DRAW:
+\u2022 Sarah (a woman with a head covering) in the centre, seated or standing, holding a small bundled baby
+\u2022 Abraham (an old man with a beard) standing beside Sarah, smiling and looking at the baby
+\u2022 Both Sarah and Abraham have BIG happy smiles
+\u2022 Several large stars in the sky above (reminding us of God\u2019s promise)
+\u2022 A tent in the background to show where they live
+\u2022 A bright sun in the corner
+
+STYLE REQUIREMENTS:
+\u2022 Black outlines only \u2014 NO colour, NO shading, NO grey fills
+\u2022 Very thick bold outlines (suitable for toddlers to colour)
+\u2022 Simple, round, friendly cartoon figures \u2014 warm and joyful feeling
+\u2022 Lots of open white space inside each shape for colouring
+\u2022 A4 portrait layout
+\u2022 Leave a blank white header area at the top for NAME and DATE fields
+
+DO NOT include: colour, text labels, Bible references, or decorative borders.`,
+      activityPrompt:`BLACK AND WHITE ACTIVITY WORKSHEET for children aged 4\u20135 (pre-readers).
+
+ACTIVITY TYPE: \u201cMATCH THE SAME PICTURE\u201d worksheet.
+BIBLE STORY: Abraham and Sarah\u2019s baby Isaac (Genesis 21)
+
+LAYOUT (A4 portrait):
+\u2022 Large bold title: \u201cMATCH THE SAME PICTURE\u201d
+\u2022 Subtitle: \u201cDraw a line to match the same pictures.\u201d
+\u2022 NAME and DATE lines
+
+MATCHING GRID (4 pairs):
+Left column (top to bottom): Baby (bundled infant), Tent, Star, Sarah (happy woman)
+Right column (SCRAMBLED order, top to bottom): Star, Baby, Sarah, Tent
+
+Between each pair: a short line for the child to extend to its match.
+
+STYLE: Black outlines only, bold cartoon, child-friendly, A4 portrait
+BOTTOM TEXT: \u201cGOD NEVER FORGETS HIS PROMISE!\u201d`,
+      takehome:{
+        story:['Today we learnt about Abraham and Sarah waiting for a baby!','They waited and waited \u2014 but God had not forgotten His promise.','God sent three visitors and said: \u201cThis time next year Sarah will have a son!\u201d','Sarah laughed because she thought she was too old \u2014 but God did it anyway!','Isaac was born \u2014 and his name means \u201claughter\u201d! Nothing is too hard for God.'],
+        question:'Ask your child: \u201cIs there something you are waiting and hoping for? Remember: God never forgets His promises!\u201d',
+        task:'Ask your child what they are waiting for this week. Remind them that waiting is okay \u2014 God is always working even when we wait.',
+        prayer:'Dear God, thank You that You never forget Your promises. Help us to be patient and trust that You are always working \u2014 even when we have to wait. Nothing is too hard for You! Amen.'
+      }
+    },
+    w2:{
+      title:"Abraham's Big Test",bible:'Genesis 22:1\u201318 (ICB)',
+      bigidea:'When we trust God completely, He always provides!',
+      phrase:'God will provide!',
+      script:[
+        {t:'Isaac had grown into a boy that Abraham loved more than anything in the whole world.'},
+        {t:'Then one day God said something very hard: \u201cAbraham, take Isaac to the mountain.\u201d Abraham trusted God completely. ',cue:'WALK slowly in place \u2014 going up the mountain'},
+        {t:'On the way, Isaac said: \u201cFather, I see the wood and the fire \u2014 but where is the sheep?\u201d ',cue:'TILT HEAD curiously'},
+        {t:'Abraham said: \u201cGod will provide, my son.\u201d ',cue:'Say slowly and calmly: \u201cGOD WILL PROVIDE\u201d'},
+        {t:'Just as Abraham was about to obey \u2014 God stopped him! \u201cDo not harm the boy! Now I know you truly trust Me!\u201d ',cue:'BIG sigh of relief \u2014 wipe pretend sweat off forehead!'},
+        {t:'Abraham looked up and saw a ram \u2014 a big sheep \u2014 caught in a bush! God had provided! ',cue:'LOOK AROUND as if searching, then POINT excitedly'},
+        {t:'God said: \u201cBecause you trusted Me, I will bless you and your whole family!\u201d ',cue:'EVERYONE SAY: \u201cGod will provide!\u201d'}
+      ],
+      comprehension:['\ud83d\udc66 Who did Abraham love very much?','\ud83d\udc11 What did Abraham find caught in the bush?','\ud83d\ude4c What happens when we trust God completely?'],
+      lifeapp:[
+        {k:'God loves you like\u2026',v:'a parent who always provides what you truly need, even when you can\u2019t see how yet.'},
+        {k:'You can trust God when\u2026',v:'something feels very hard and scary. God sees and He provides.'},
+        {k:'God helps you with\u2026',v:'trusting Him even when we don\u2019t understand what is happening.'}
+      ],
+      coloringPrompt:`BLACK AND WHITE COLOURING PAGE for children aged 0\u20133.
+
+SCENE: Abraham\u2019s big test \u2014 the ram caught in the bush (Bible story, Genesis 22).
+
+WHAT TO DRAW:
+\u2022 Abraham (old man with robes and beard) standing on a hillside, looking relieved and pointing upward
+\u2022 Isaac (young boy) standing beside Abraham looking surprised and happy
+\u2022 A large, fluffy RAM (horned sheep) clearly caught by its horns in a thick bush on the right side
+\u2022 A wood pile and fire on an altar stone to one side
+\u2022 An angel above in a cloud (simple winged figure with arms stretched downward \u2014 \u201cStop!\u201d gesture)
+\u2022 Rugged hills or mountains in the background
+
+STYLE REQUIREMENTS:
+\u2022 Black outlines only \u2014 NO colour, NO shading, NO grey fills
+\u2022 Very thick bold outlines (suitable for toddlers to colour)
+\u2022 Simple, round, friendly cartoon figures
+\u2022 Lots of open white space inside each shape for colouring
+\u2022 A4 portrait layout
+\u2022 Leave a blank white header area at the top for NAME and DATE fields`,
+      activityPrompt:`BLACK AND WHITE ACTIVITY WORKSHEET for children aged 4\u20135 (pre-readers).
+
+ACTIVITY TYPE: \u201cFIND AND CIRCLE\u201d worksheet.
+BIBLE STORY: Abraham\u2019s big test / God provides (Genesis 22)
+
+LAYOUT (A4 portrait, top to bottom):
+\u2022 Large bold title: \u201cFIND AND CIRCLE\u201d
+\u2022 Subtitle: \u201cCircle ONLY the things from today\u2019s Bible story.\u201d
+\u2022 NAME and DATE lines
+
+4-ROW GRID (each row has 4 cartoon icons):
+Row 1: Ram/sheep (correct), Car (wrong), Abraham (old man, correct), Ice cream (wrong)
+Row 2: Fire/flames (correct), Football (wrong), Isaac (young boy, correct), Lollipop (wrong)
+Row 3: Mountain (correct), Shoe (wrong), Ram (correct), Basketball (wrong)
+Row 4: Angel (correct), Car (wrong), Bush (correct), Ice cream (wrong)
+
+Under each icon: a short label in large bold text
+
+STYLE: Black outlines only, bold cartoon, child-friendly, A4 portrait
+BOTTOM TEXT: \u201cGOD ALWAYS PROVIDES!\u201d`,
+      takehome:{
+        story:['Today we learnt about Abraham\u2019s biggest test.','God asked Abraham to do something very hard \u2014 and Abraham trusted God completely.','Abraham told Isaac: \u201cGod will provide.\u201d','Just in time, God stopped Abraham and provided a ram caught in a bush.','God rewards and provides for those who trust Him completely!'],
+        question:'Ask your child: \u201cWhat does \u201cGod will provide\u201d mean? Can you say it together?\u201d',
+        task:'When your child feels worried this week, say together: \u201cGod will provide.\u201d Practise trusting even when you cannot see the answer yet.',
+        prayer:'Dear God, thank You that You always provide what we need. Help us to trust You even when things feel hard. We believe You are always working for our good. Amen.'
+      }
+    },
+    w3:{
+      title:"Jacob's Dream",bible:'Genesis 28:10\u201322 (ICB)',
+      bigidea:'God is with us everywhere \u2014 even when we are far from home!',
+      phrase:'God is with me everywhere!',
+      script:[
+        {t:'Jacob was on a long journey \u2014 far away from his family. It was getting dark and he was all alone. ',cue:'HUG yourself like you\u2019re cold and lonely'},
+        {t:'Jacob found a stone to use as a pillow and lay down on the ground to sleep. ',cue:'TILT head to the side like resting \u2014 eyes closed!'},
+        {t:'And Jacob had an AMAZING dream! He dreamt of a big staircase reaching from the earth all the way up to heaven! ',cue:'SLOWLY move fingers upward like climbing stairs'},
+        {t:'Angels were going up and down the staircase! ',cue:'FLUTTER fingers downward like angels descending'},
+        {t:'At the top was GOD! God said: \u201cJacob, I am with you! I will go with you wherever you go and I will never leave you!\u201d ',cue:'SPREAD arms wide, warm big voice'},
+        {t:'Jacob woke up and said: \u201cGod is in THIS place \u2014 and I didn\u2019t even know it!\u201d ',cue:'LOOK AROUND with great wonder and surprise'},
+        {t:'God is with us everywhere \u2014 even in the lonely places and in the dark! ',cue:'EVERYONE SAY: \u201cGod is with me everywhere!\u201d'}
+      ],
+      comprehension:['\ud83c\udf19 Where did Jacob fall asleep?','\ud83e\ude9c What did Jacob dream about?','\ud83d\udcac What did God say to Jacob?'],
+      lifeapp:[
+        {k:'God loves you like\u2026',v:'someone who is ALWAYS there \u2014 even at night when it\u2019s dark and quiet.'},
+        {k:'You can trust God when\u2026',v:'you feel far from home or lonely. God is right there with you!'},
+        {k:'God helps you with\u2026',v:'not being afraid of the dark or of being alone \u2014 because God never leaves.'}
+      ],
+      coloringPrompt:`BLACK AND WHITE COLOURING PAGE for children aged 0\u20133.
+
+SCENE: Jacob\u2019s dream \u2014 the staircase to heaven (Bible story, Genesis 28).
+
+WHAT TO DRAW:
+\u2022 Jacob (a young man) sleeping on the ground at the BOTTOM of the page, head resting on a stone
+\u2022 A large stone staircase stretching diagonally from Jacob all the way up to a cloud at the TOP of the page
+\u2022 2\u20133 ANGELS on the staircase \u2014 simple, friendly winged figures going up and down
+\u2022 At the TOP: a large fluffy cloud with warm light rays coming from it (representing God\u2019s presence)
+\u2022 A night sky with stars filling the background
+\u2022 Small \u201cZ Z Z\u201d letters near Jacob\u2019s head to show he is sleeping
+
+STYLE REQUIREMENTS:
+\u2022 Black outlines only \u2014 NO colour, NO shading, NO grey fills
+\u2022 Very thick bold outlines (suitable for toddlers to colour)
+\u2022 Simple, round, friendly cartoon figures \u2014 angels should look sweet and gentle, not scary
+\u2022 Lots of open white space inside each shape for colouring
+\u2022 A4 portrait layout
+\u2022 Leave a blank white header area at the top for NAME and DATE fields`,
+      activityPrompt:`BLACK AND WHITE ACTIVITY WORKSHEET for children aged 4\u20135 (pre-readers).
+
+ACTIVITY TYPE: \u201cMATCH THE SAME PICTURE\u201d worksheet.
+BIBLE STORY: Jacob\u2019s dream / staircase to heaven (Genesis 28)
+
+LAYOUT (A4 portrait):
+\u2022 Large bold title: \u201cMATCH THE SAME PICTURE\u201d
+\u2022 Subtitle: \u201cDraw a line to match the same pictures.\u201d
+\u2022 NAME and DATE lines
+
+MATCHING GRID (4 pairs):
+Left column (top to bottom): Angel (winged figure), Staircase, Jacob sleeping on stone, Cloud with light rays
+Right column (SCRAMBLED, top to bottom): Jacob sleeping, Angel, Cloud, Staircase
+
+Between each pair: a short blank line for the child to draw their matching line.
+
+STYLE: Black outlines only, bold cartoon, child-friendly, A4 portrait
+BOTTOM TEXT: \u201cGOD IS WITH ME EVERYWHERE!\u201d`,
+      takehome:{
+        story:['Today we learnt about Jacob\u2019s amazing dream!','Jacob was far from home and alone when he fell asleep using a stone as a pillow.','He dreamt of a huge staircase from earth all the way to heaven, with angels going up and down!','God spoke to Jacob and said: \u201cI will be with you wherever you go.\u201d','God is with us everywhere \u2014 even in the lonely or scary places.'],
+        question:'Ask your child: \u201cDoes God stay with us even when it\u2019s dark and we\u2019re asleep? YES! God never leaves!\u201d',
+        task:'At bedtime this week, say with your child: \u201cGod is with me everywhere \u2014 even right here in my bed!\u201d Turn it into a calming night-time reassurance.',
+        prayer:'Dear God, thank You that You are with us everywhere we go. Thank You that You never leave us alone. Even in the dark, You are there. Help us always feel Your love near us. Amen.'
+      }
+    },
+    w4:{
+      title:'REVISION \u2014 God Keeps His Promises',bible:'Genesis 11\u201328 (ICB)',type:'revision',
+      revTopics:['The Big Tower \u2014 God is always in charge',"God's Big Adventure \u2014 trusting God and obeying",'Stars Too Many To Count \u2014 God\u2019s big promises','Abraham and Sarah Wait for a Baby \u2014 God remembers!',"Abraham's Big Test \u2014 God provides","Jacob's Dream \u2014 God is with us everywhere"],
+      activities:[
+        {label:'\ud83d\udcd6 Story Quiz',desc:'Teacher reads a clue from each story. Children shout the answer! E.g., \u201cWhich story had a big tower?\u201d \u2014 \u201cBABEL!\u201d'},
+        {label:'\ud83c\udfa8 Drawing Activity',desc:'Children draw their favourite story from this term and share with the class.'},
+        {label:'\ud83d\udde3\ufe0f Sharing Circle',desc:'\u201cMy favourite thing I learnt about God is\u2026\u201d \u2014 each child shares one thing.'}
+      ],
+      takehome:{
+        story:['Today was Revision Sunday \u2014 we remembered all our stories!','We learnt about: The Big Tower, Abram\u2019s journey, God\u2019s promise of stars, Abraham and Sarah\u2019s baby, Abraham\u2019s big test, and Jacob\u2019s dream.','The big theme: GOD ALWAYS KEEPS HIS PROMISES!'],
+        question:'Ask your child: \u201cWhich story was your favourite? What did you learn about God from it?\u201d',
+        task:'Draw or act out your favourite Bible story from this term at home. Share it with another family member.',
+        prayer:'Dear God, thank You for all the wonderful stories in the Bible. Every story shows us how much You love us. Help us remember and believe all Your promises. Amen.'
+      }
+    }
+  }
+};
+
+
+// ══════════ LIGHT BEARERS DATA ══════════
+const BEARERS={
+  april:{
+    w1:{type:'orientation'},
+    w2:{
+      title:'When People Forgot God',subtitle:'The Tower of Babel',bible:'Genesis 11:1\u20139 (ICB)',
+      memVerse:{text:'\u201cThe Lord looks down from heaven on all people. He wants to see if there is anyone who is wise, if there is anyone who looks to God for help.\u201d',ref:'Psalm 14:2 (ICB)'},
+      objectives:['Understand what pride is and why it separates us from God','Discover that no human plan can outlast God\u2019s plan','See how God\u2019s correction can be an act of mercy'],
+      prep:'Read Genesis 11:1-9 twice before class. Bring a picture of the Tower of Babel if possible. Have a world map to show how languages spread across continents.',
+      hook:'"Imagine your whole class built the tallest tower in the room with paper cups. Then someone said: \'This tower proves WE are the greatest \u2014 we don\u2019t need the teacher!\' What would happen next? Today\'s story is exactly about that \u2014 but on a much bigger scale."',
+      bibleStops:[
+        {after:'v.4',q:'What were the people actually trying to do? What does "make a name for ourselves" really mean?'},
+        {after:'v.6',q:'Why was God concerned \u2014 was it just about the tower, or something deeper about the people\u2019s hearts?'},
+        {after:'v.9',q:'Was scattering the people only a punishment, or could it also be a good thing? What was God\u2019s original plan? (Hint: Genesis 1:28)'}
+      ],
+      steps:[
+        {n:1,title:"Pride says 'I don't need God'",body:"The tower builders weren't just building. They were declaring independence from God. When we say 'I can do this without God,' we repeat the same mistake.",discuss:'"What does pride look like in everyday life \u2014 at school, at home, with friends?"',ex:"A student who gets top marks and starts thinking they don't need to study, pray, or listen anymore. Pride always ends badly."},
+        {n:2,title:"God's plans cannot be stopped",body:"The people thought they could reach God's level. But God simply came DOWN. He wasn't threatened. No plan formed against God's purposes ever succeeds.",discuss:'"If God is all-powerful, why did He say \'Let us go down and see\'? Was He surprised?"',ex:"A referee in a football match. Players can argue all they want, but the referee's decision still stands. God always has the final word."},
+        {n:3,title:'Sometimes correction is mercy in disguise',body:"Scattering people was EXACTLY what God commanded in Genesis 1:28: 'Fill the earth.' The tower was delaying His plan. God's correction got them back on track.",discuss:'"How was scattering people connected to God\'s original, good plan for creation?"',ex:"A parent stopping a child from running into a busy road. It looks like a punishment \u2014 it's actually protection and love."}
+      ],
+      discussion:['What does "making a name for ourselves" look like in today\u2019s world?','Why do you think God used language to scatter the people rather than simply destroying the tower?','Can you think of a time when something that felt like a setback was actually a new direction?','How does this story show BOTH God\u2019s justice AND His mercy at the same time?','After Babel, did God give up on people? What comes next in the story?'],
+      lifeapp:[
+        {k:'At school:',v:'When you succeed at something, who do you thank? Pride says \u201cI did this alone.\u201d Humility says \u201cGod helped me, and so did others.\u201d'},
+        {k:'At home:',v:'When you want everything done your way, what would it look like to put God first in that situation?'},
+        {k:'At church:',v:'We gather to worship God \u2014 not to impress each other. What is one thing you can do this week to make worship truly about God?'}
+      ],
+      vocab:[
+        {w:'Pride',d:'Thinking you are so great that you stop needing God or other people.'},
+        {w:'Ambition',d:'A strong desire to achieve something \u2014 can be good or harmful depending on the motive.'},
+        {w:'Scatter',d:'To spread out in many different directions.'},
+        {w:'Covenant',d:'A very serious, unbreakable promise between God and people.'},
+        {w:'Sovereignty',d:'God\u2019s complete power and control over everything that happens.'},
+        {w:'Descendants',d:'All the people who come from you \u2014 children, grandchildren, and beyond.'},
+        {w:'Consequence',d:'What happens as a direct result of a choice we make.'}
+      ],
+      // BULLET-POINT CLASS NOTES (actual lesson content children write in notebooks)
+      classNotes:[
+        {
+          point:'The Story: Genesis 11:1\u20139',
+          subs:['All people spoke ONE language and could understand each other.','They settled in Shinar and decided to build a tower reaching to heaven.','Their real motive: to make themselves famous and great \u2014 without God.','God came down, saw their pride, and changed their languages.','The people scattered all over the earth. The city was called Babel (meaning confusion).']
+        },
+        {
+          point:'Why God Was Concerned',
+          subs:['It was not just about the tower \u2014 it was about the people\u2019s hearts.','They wanted to be great WITHOUT God. That is the heart of pride.','God said: \u201cNow nothing they want to do will be impossible for them\u201d \u2014 meaning unchecked pride leads people further from God.']
+        },
+        {
+          point:'Was the Scattering Good or Bad?',
+          subs:['In Genesis 1:28, God had already commanded: \u201cFill the earth.\u201d','The tower was keeping people in one place, going against God\u2019s plan.','The scattering was both a correction AND a fulfilment of God\u2019s original plan.','God\u2019s plans cannot be stopped by human ambition \u2014 ever.']
+        },
+        {
+          point:'The Key Lesson: Pride vs. Humility',
+          subs:['PRIDE says: \u201cI don\u2019t need God.\u201d  HUMILITY says: \u201cI need God for everything.\u201d','The builders had unity \u2014 but they used it for the wrong purpose.','God blesses unity that is directed toward HIM, not toward self-glory.']
+        },
+        {
+          point:'Memory Verse \u2014 Psalm 14:2 (ICB)',
+          subs:['\u201cThe Lord looks down from heaven on all people. He wants to see if there is anyone who is wise, if there is anyone who looks to God for help.\u201d','To be truly wise is to look to GOD \u2014 not to ourselves.']
+        }
+      ],
+      // UNIFIED CLASSWORK for all ages 6-10
+      classwork:[
+        {q:'Where did the people settle when they started building the tower?',type:'mc',opts:['Egypt','The land of Shinar','Jerusalem','Canaan'],ans:'b) The land of Shinar (Genesis 11:2)'},
+        {q:'What were the TWO reasons the people wanted to build the tower? (Circle the two correct answers)',type:'mc',opts:['To make themselves famous','To store food','To reach heaven','To worship God'],ans:'a) To make themselves famous  and  c) To reach heaven'},
+        {q:'God was surprised when He saw the tower being built.',type:'tf',ans:'FALSE \u2014 God is all-knowing. He came down to act, not because He was surprised.'},
+        {q:'What did God do to stop the building? (Fill in the blank)\nGod changed the people\u2019s _______________ so they could not understand each other.',type:'fill',ans:'languages'},
+        {q:'The city was called Babel, which means _______________.',type:'fill',ans:'confusion'},
+        {q:'Read Genesis 1:28. God had always planned for people to fill the earth. How does the scattering at Babel connect to this original plan?',type:'open'},
+        {q:'THINKING QUESTION: Was scattering the people a punishment, a mercy, or both? Give a reason for your answer.',type:'open'},
+        {q:'Give ONE modern-day example of what pride looks like in someone your age.',type:'open'},
+        {q:'Write the memory verse from Psalm 14:2 (ICB) from memory:',type:'open'},
+        {q:'LIFE APPLICATION: Write one specific way you can choose humility over pride this week.',type:'open'}
+      ],
+      takehome:{
+        story:['Today the Light Bearers studied the Tower of Babel (Genesis 11).','People used their unity and language to try to reach God\u2019s level and make themselves great \u2014 without God.','God\u2019s response was not just punishment: it steered His people back toward His original plan (Genesis 1:28).','Memory verse: Psalm 14:2 (ICB) \u2014 \u201cThe Lord looks down from heaven on all people\u2026\u201d'],
+        question:'Ask your child: \u201cWhat is pride? How did the tower builders show pride? What does pride look like in everyday life?\u201d',
+        task:'This week, challenge every family member to say \u201cThank You, God\u201d out loud whenever something goes well \u2014 a meal, a safe journey, a good day. Practise giving God the credit.',
+        prayer:'Dear God, forgive us for the times we act as if we do not need You. You are in charge \u2014 not us. Teach us humility and help us honour You in everything we do. Amen.'
+      }
+    },
+    w3:{
+      title:'Faith Without a Map',subtitle:'God Calls Abram',bible:'Genesis 12:1\u20139 (ICB)',
+      memVerse:{text:'\u201cTrust the Lord with all your heart. Don\u2019t depend on your own understanding. Remember the Lord in everything you do. And he will give you success.\u201d',ref:'Proverbs 3:5\u20136 (ICB)'},
+      objectives:['Understand that genuine faith means acting on God\u2019s word before you can see the full picture','Recognise that every call from God comes with a promise attached','See how one person\u2019s obedience can change the course of history'],
+      prep:'Read Genesis 12:1-9. Give each child a blank sheet of paper \u2014 they will draw their own \u201cfaith map\u201d during the lesson. Optional: bring a world map to show Canaan.',
+      hook:'"Imagine someone came to your house tonight and said: \'Pack all your things. You are moving to a new country \u2014 I will tell you which one when you get there.\' Would you go? What would make you say yes? That is the situation Abram was in \u2014 except it was GOD asking."',
+      bibleStops:[
+        {after:'v.1',q:'What exactly did God ask Abram to leave? (Country, relatives, father\u2019s household.) How hard do you think each one was?'},
+        {after:'v.3',q:'Count how many times God says \u201cI will\u201d in verses 2-3. What does it tell us that GOD is the one making and keeping every promise?'},
+        {after:'v.9',q:'Abram did not know where he was going (Hebrews 11:8). Do you think he was scared? How is this genuine faith in action?'}
+      ],
+      steps:[
+        {n:1,title:'Faith means acting before you can fully see',body:'Abram did not get a brochure for Canaan. He did not get GPS directions. He just had God\u2019s word \u2014 and that was enough. Real faith is not waiting until everything is certain; it is moving when God says move.',discuss:'"Can you think of something you do every day that requires trust \u2014 trusting something will work before you know for certain?"',ex:'Sitting on a chair: you do not spend ten minutes testing it first. You trust and sit. Faith is trusting God is reliable enough to act on.'},
+        {n:2,title:'Every call from God comes with a promise',body:'God did not just say \u201cGo.\u201d He said \u201cGo AND I will make you a great nation AND I will bless you AND through you all families of the earth will be blessed.\u201d The command and the promise are inseparable.',discuss:'"What were all five of God\u2019s promises to Abram in Genesis 12:2-3? Can you find them all?"',ex:'A job offer that comes with a contract. The contract makes the offer trustworthy. God\u2019s promises are better than any contract ever written.'},
+        {n:3,title:'One act of obedience can change millions of lives',body:'Abram saying YES to God is why we have the whole story of Israel, the Bible, and God\u2019s plan for all of history. One ordinary person, saying yes, changed everything.',discuss:'"What might have happened to history if Abram had said no to God?"',ex:'Think of someone whose faith positively affected your family. Faith is never just personal \u2014 it shapes families, communities, and generations.'}
+      ],
+      discussion:['What made Abram\u2019s obedience remarkable given his age (75!) and the size of the request?','God made five promises to Abram. Which do you think was hardest to believe \u2014 and why?','Why is it important that GOD is the one saying \u201cI will\u201d in all five promises?','Is it possible to obey God when you do not understand everything about His plan? Give an example.','What is one area of your life right now where you need to trust God\u2019s direction?'],
+      lifeapp:[
+        {k:'At school:',v:'Doing the right thing \u2014 like being honest when it\u2019s hard \u2014 before you see the reward. That\u2019s faith in action.'},
+        {k:'At home:',v:'Obeying your parents when you don\u2019t fully understand why requires the same trust Abram showed. Is that easy?'},
+        {k:'In your heart:',v:'Is there something God is asking you to change but you\u2019re waiting until it feels easy? Faith acts first. Feelings follow.'}
+      ],
+      vocab:[
+        {w:'Faith',d:'Trusting God and acting on what He says, even when you cannot see the full picture.'},
+        {w:'Obedience',d:'Doing what you have been told, especially when it is difficult or costly.'},
+        {w:'Covenant',d:'A solemn, unbreakable agreement between God and a person or group.'},
+        {w:'Blessing',d:'Something good that God gives \u2014 favour, protection, and abundance.'},
+        {w:'Inheritance',d:'Something valuable passed down to you \u2014 land, promise, or blessing.'},
+        {w:'Altar',d:'A raised structure built to worship God and give thanks to Him.'},
+        {w:'Nation',d:'A large group of people with shared identity, history, and land.'}
+      ],
+      classNotes:[
+        {
+          point:"God's Call to Abram \u2014 Genesis 12:1",
+          subs:['God told Abram to leave THREE things: his country, his relatives, and his father\u2019s household.','This was a huge sacrifice \u2014 everything familiar, every relationship, every comfort.','Abram was 75 years old when he received this call.','He took his wife Sarai, his nephew Lot, and all they owned, and left.']
+        },
+        {
+          point:"God's Five Promises \u2014 Genesis 12:2\u20133",
+          subs:['"I will make you into a great nation."','"I will bless you."','"I will make your name great."','"You will be a blessing to others."','"Through you, all families of the earth will be blessed."','NOTICE: God says \u201cI will\u201d five times. GOD is the one making AND keeping every promise.']
+        },
+        {
+          point:'What Makes Abram\u2019s Faith Remarkable',
+          subs:['Hebrews 11:8 says Abram obeyed \u201cnot knowing where he was going.\u201d','He had NO map. NO destination. Just God\u2019s word.','He arrived in Canaan and built an ALTAR \u2014 his first act was worship and thanksgiving.','Faith is not feeling brave. Faith is obeying even when you are unsure.']
+        },
+        {
+          point:'The Big Idea: One Yes Changes Everything',
+          subs:['Abram\u2019s obedience shaped the history of Israel, the Bible, and God\u2019s plan for all people.','Every great thing God does often begins with ONE person saying yes.','Our obedience \u2014 even small acts \u2014 can have consequences we cannot fully see.']
+        },
+        {
+          point:'Memory Verse \u2014 Proverbs 3:5\u20136 (ICB)',
+          subs:['\u201cTrust the Lord with all your heart. Don\u2019t depend on your own understanding. Remember the Lord in everything you do. And he will give you success.\u201d','Trusting God means acting on His word even when our OWN understanding says otherwise.']
+        }
+      ],
+      classwork:[
+        {q:'How old was Abram when God called him to leave home?',type:'mc',opts:['25 years old','50 years old','75 years old','100 years old'],ans:'c) 75 years old'},
+        {q:'List the THREE things God asked Abram to leave behind (Genesis 12:1):\n1. _______________   2. _______________   3. _______________',type:'fill',ans:'1. His country  2. His relatives  3. His father\'s household'},
+        {q:'God told Abram exactly where he was going before he left.',type:'tf',ans:'FALSE \u2014 Hebrews 11:8 says he obeyed \u201cnot knowing where he was going.\u201d'},
+        {q:'How many times does God say \u201cI will\u201d in Genesis 12:2\u20133? What does this tell us about who is responsible for keeping the promises?',type:'open'},
+        {q:'What was the FIRST thing Abram did when he arrived in Canaan? What does this show about his character?',type:'mc',opts:['He built a palace','He rested for a week','He built an altar and worshipped God','He complained about the journey'],ans:'c) He built an altar and worshipped God \u2014 showing that his first priority was God.'},
+        {q:'Fill in the memory verse:\n\u201cTrust the Lord with all your ___________. Don\u2019t depend on your own ___________. Remember the Lord in everything you do. And he will give you ___________.\u201d \u2014 Proverbs 3:5\u20136 (ICB)',type:'fill',ans:'heart / understanding / success'},
+        {q:'THINKING QUESTION: Abram had no map and no destination. What do you think kept him going on the journey? Give TWO reasons.',type:'open'},
+        {q:'Give one example from your own life of doing the right thing before you could see the reward (faith in action).',type:'open'},
+        {q:'If Abram had refused to go, how might history have been different? (Think about what came from his obedience.)',type:'open'},
+        {q:'LIFE APPLICATION: Is there something God or your parents are asking you to do that requires trust? Write what it is and how you will choose to respond.',type:'open'}
+      ],
+      takehome:{
+        story:['Today the Light Bearers studied God\u2019s call to Abram (Genesis 12).','At 75, God asked Abram to leave everything \u2014 country, relatives, and father\u2019s household.','Abram obeyed, not knowing where he was going, because he trusted God\u2019s promises.','God made five \u201cI will\u201d promises \u2014 and He has kept every single one.','Memory verse: Proverbs 3:5\u20136 (ICB)'],
+        question:'Ask your child: \u201cWhat are all the things God asked Abram to leave? Which would be hardest for YOU to leave?\u201d',
+        task:'As a family, identify one area where you need to trust God even though you cannot see the outcome. Pray about it daily this week.',
+        prayer:'Dear God, we want to have faith like Abram \u2014 faith that obeys even when we cannot see the full picture. Give us courage to say YES to You. Amen.'
+      }
+    },
+    w4:{
+      title:'The Stars and the Covenant',subtitle:'Stars Beyond Counting',bible:'Genesis 15:1\u201321; 17:1\u20138 (ICB)',
+      memVerse:{text:'\u201cGod said, \u2018Look at the sky. There are so many stars you cannot count them. Your descendants also will be too many to count.\u2019\u201d',ref:'Genesis 15:5 (ICB)'},
+      objectives:['Understand what a covenant is and why God\u2019s covenant with Abram is unique and unbreakable','Learn the difference between honest doubt and outright unbelief','See how God\u2019s promises are always bigger than we can fully imagine'],
+      prep:'Bible (Genesis 15 and 17). Bring a star-field image if possible. Prepare class notebooks.',
+      hook:'"Has anyone ever made a big promise to you \u2014 one that seemed almost too good to be true? How did you decide whether to believe it? Today we are looking at the biggest, most unbreakable promise in the entire Bible \u2014 and finding out exactly why it can be completely trusted."',
+      bibleStops:[
+        {after:'15:6',q:'Abram believed God. God \u201ccounted it to him as righteousness.\u201d What does that mean \u2014 is Abram being perfectly good, or simply trusting God?'},
+        {after:'15:17',q:'In the covenant ceremony, only GOD passed between the animals. In ancient times BOTH parties walked through. What does it mean that only God walked here?'},
+        {after:'17:5',q:'God changes Abram\u2019s name to Abraham. What does \u201cfather of many nations\u201d mean for someone who still has no children?'}
+      ],
+      steps:[
+        {n:1,title:"A covenant is God's strongest kind of promise",body:"In Genesis 15, God makes a covenant using the most solemn method of the ancient world \u2014 splitting animals and walking between them. Normally BOTH parties walked. But ONLY GOD walked through. This means: 'If this covenant breaks, the penalty falls on ME.' God took all the responsibility.",discuss:'"Why is a covenant more serious and binding than a normal promise or even a contract?"',ex:"The most powerful person imaginable signing a contract and saying: 'I personally guarantee this with everything I have.' That is what God did \u2014 and God cannot fail."},
+        {n:2,title:'Questions and doubt are not the same as unbelief',body:'Abram asked \u201cHow will I know?\u201d \u2014 that is a genuine question, not a rejection. And God answered him graciously. God is patient with struggling faith. The problem is not honest questions; the problem is refusing to trust even when God has answered.',discuss:'"What is the difference between asking God a genuine question and refusing to trust God altogether?"',ex:'A student asking the teacher \u201cCan you explain that again?\u201d is very different from saying \u201cI refuse to believe anything you say.\u201d God welcomes honest questions.'},
+        {n:3,title:"God's promises are always bigger than we can see",body:'God renamed Abram \u201cAbraham\u201d \u2014 father of MANY nations \u2014 before he had a single child. God calls things that are not yet as if they already are. This new name was Abraham\u2019s new identity, given before the evidence appeared.',discuss:'"How does knowing the full history of the Bible help you trust God\u2019s promises to Abraham even more?"',ex:'A tiny seed that looks like nothing \u2014 dry and small. But inside it contains a forest. God sees the forest in the seed.'}
+      ],
+      discussion:['Why did God use the ceremony of splitting animals? What did this communicate in the ancient world?','Genesis 15:6 says Abraham \u201cbelieved God, and it was counted to him as righteousness.\u201d Is this about being perfect, or about trusting? What is the difference?','Abraham had questions and moments of doubt. Does that mean his faith was weak? What makes faith genuine?','What does the name change from Abram to Abraham communicate about how God sees us?','What is one of God\u2019s promises that YOU find hard to believe right now?'],
+      lifeapp:[
+        {k:'At school:',v:'Trusting that honest hard work will be rewarded \u2014 even when you cannot see the marks yet. That is faith with patience.'},
+        {k:'At home:',v:'When your parents make a promise, you believe them based on their track record. God\u2019s track record with Abraham is perfect.'},
+        {k:'For your future:',v:'\u201cGod has good plans for you\u201d (Jeremiah 29:11). This is the same God who made promises to Abraham. His track record is unbroken. Trust His plan for your life.'}
+      ],
+      vocab:[
+        {w:'Covenant',d:'A deep, unbreakable agreement \u2014 stronger than a contract \u2014 sealed with sacrifice in the ancient world.'},
+        {w:'Righteousness',d:'Being right with God \u2014 not by being perfect, but by trusting Him.'},
+        {w:'Heir',d:'Someone who receives what belongs to another \u2014 usually a child receiving from a parent.'},
+        {w:'Descendants',d:'Your children, grandchildren, and all the generations that come after you.'},
+        {w:'Everlasting',d:'Lasting forever \u2014 without any end at all.'},
+        {w:'Doubt',d:'A feeling of uncertainty \u2014 not the same as outright rejection or unbelief.'},
+        {w:'Identity',d:'Who you are at your core \u2014 your name, character, and calling.'}
+      ],
+      classNotes:[
+        {
+          point:"What Is a Covenant? \u2014 Genesis 15",
+          subs:['A covenant is stronger than a promise and more serious than a contract.','In the ancient world, both parties would walk between split animal halves to seal an agreement: \u201cIf I break this, may what happened to these animals happen to me.\u201d','In Genesis 15, GOD ALONE passed between the animals \u2014 as a smoking pot and flaming torch.','This means: GOD took ALL the responsibility. The covenant depends on HIS faithfulness, not ours.','This is extraordinary \u2014 no human covenant worked this way.']
+        },
+        {
+          point:'Faith Counted as Righteousness \u2014 Genesis 15:6',
+          subs:['Abram \u201cbelieved God, and the Lord counted it to him as righteousness.\u201d','Abram was NOT declared righteous because he was perfect.','He was declared righteous because he TRUSTED God.','This is the very foundation of how God relates to people: through faith, not perfection.','This verse is quoted three times in the New Testament \u2014 it is one of the most important in all of Scripture.']
+        },
+        {
+          point:"Doubt vs. Unbelief \u2014 What's the Difference?",
+          subs:['Abram asked: \u201cHow will I know that I will possess it?\u201d (v.8) \u2014 an honest question.','God did not punish Abram for asking. He answered him with a covenant.','DOUBT = asking genuine questions while still trusting God.','UNBELIEF = flat refusal to trust God, even when He has already answered.','God is patient with those who doubt. He is not patient with those who harden their hearts.']
+        },
+        {
+          point:"A New Name, A New Identity \u2014 Genesis 17",
+          subs:['God changed Abram\u2019s name to ABRAHAM, meaning \u201cFather of many nations.\u201d','This happened BEFORE Abraham had any children besides Ishmael.','God calls things that are not yet as if they already are (see Romans 4:17).','A name change in the Bible marks a new calling and a new identity given by God.','Abraham\u2019s identity was no longer defined by his circumstances \u2014 but by God\u2019s word over him.']
+        },
+        {
+          point:'Memory Verse \u2014 Genesis 15:5 (ICB)',
+          subs:['\u201cGod said, \u2018Look at the sky. There are so many stars you cannot count them. Your descendants also will be too many to count.\u2019\u201d','God\u2019s promises are always bigger than we can imagine. He sees the forest in the seed.']
+        }
+      ],
+      classwork:[
+        {q:'What is a covenant? How is it different from a normal promise?',type:'open'},
+        {q:'In the covenant ceremony (Genesis 15:9\u201317), who walked between the animal halves? What did this mean?',type:'mc',opts:['Abraham alone','Both Abraham and God','Only God (as a smoking pot and flame)','The angels'],ans:'c) Only God (as a smoking pot and flame) \u2014 meaning God took all the responsibility for keeping it.'},
+        {q:'Genesis 15:6 says Abram \u201cbelieved God,\u201d and God counted this as righteousness. Was Abram declared righteous because he was perfect or because he trusted? Explain.',type:'open'},
+        {q:'Abraham asked \u201cHow will I know?\u201d (v.8). Was this unbelief? What is the difference between doubt and unbelief?',type:'open'},
+        {q:'God renamed Abram \u201cAbraham\u201d \u2014 meaning \u201cfather of many nations\u201d \u2014 before he had any children. What does this tell us about the way God works?',type:'open'},
+        {q:'Fill in the memory verse:\n\u201cGod said, \u2018Look at the sky. There are so many ___________ you cannot count them. Your ___________ also will be too many to count.\u2019\u201d \u2014 Genesis 15:5 (ICB)',type:'fill',ans:'stars / descendants'},
+        {q:'TRUE or FALSE: God\u2019s covenant with Abraham was temporary and came to an end after a few generations.',type:'tf',ans:'FALSE \u2014 God called it an \u201ceverlasting covenant\u201d (Genesis 17:7)'},
+        {q:'Think of a seed growing into a large tree. How does this image help explain how God\u2019s promises work?',type:'open'},
+        {q:'Name one promise from God\u2019s word that you personally find hard to believe. Why is it hard? What would it look like to trust it anyway?',type:'open'},
+        {q:'LIFE APPLICATION: Write one area of your life where you need to stop taking matters into your own hands and trust God\u2019s timing instead.',type:'open'}
+      ],
+      takehome:{
+        story:['Today the Light Bearers studied God\u2019s covenant with Abraham (Genesis 15 and 17).','God made the most solemn promise in Scripture \u2014 a covenant sealed with sacrifice where only GOD walked through.','God promised Abraham stars-worth of descendants. Abraham believed \u2014 and that faith was counted as righteousness.','God renamed Abram \u201cAbraham\u201d \u2014 father of many nations \u2014 before a single child was born.','Memory verse: Genesis 15:5 (ICB)'],
+        question:'Ask your child: \u201cWhat is a covenant? Why can God\u2019s promises be trusted more than anyone else\u2019s? What is the difference between doubt and unbelief?\u201d',
+        task:'Look at the night sky together and count the stars. Then say: \u201cThis is how big God\u2019s faithfulness is.\u201d Work on memorising Genesis 15:5 together this week.',
+        prayer:'Lord, thank You that Your promises never break. When we are tempted to take things into our own hands, remind us that You are already at work. Teach our family to trust You with all our hearts. Amen.'
+      }
+    }
+  }
+};
+
+
+// ══════════ NAVIGATION ══════════
+let S={cls:null,mon:null,wk:null};
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+function goHome(){S={cls:null,mon:null,wk:null};show('sc-home');}
+function selectClass(cls){
+  S.cls=cls;
+  const label=cls==='garden'?"God\u2019s Little Garden":'Light Bearers';
+  document.getElementById('hdr-class').innerHTML=`${label}<span>Choose a month</span>`;
+  document.getElementById('month-grid').innerHTML=MONTHS.map(m=>`<div class="mbtn" onclick="selectMonth('${m.id}')"><span class="mname">${m.n}</span><span class="mtheme">${m.theme}</span></div>`).join('');
+  show('sc-month');
+}
+function showMonths(){S.mon=null;show('sc-month');}
+function selectMonth(id){
+  S.mon=id;
+  const m=MONTHS.find(x=>x.id===id);
+  document.getElementById('hdr-month').innerHTML=`${m.n}<span>${m.theme}</span>`;
+  document.getElementById('month-hdr-card').innerHTML=`<div class="mhdr"><h2>${m.n} \u00b7 ${m.theme}</h2><p class="mtheme-txt">\u201c${m.theme}\u201d</p><p class="mbible">\ud83d\udcd6 ${m.bible}</p></div>`;
+  const data=S.cls==='garden'?GARDEN[id]:BEARERS[id];
+  const g=document.getElementById('week-grid');
+  if(!data){g.innerHTML=`<div class="coming"><div class="ci">\ud83d\udcc5</div><h3>Coming Soon</h3><p>Lessons for this month are being prepared. Check back soon!</p></div>`;show('sc-week');return;}
+  g.innerHTML=['w1','w2','w3','w4'].map((wk,i)=>{
+    const w=data[wk];
+    if(!w)return`<div class="wbtn locked"><span class="wnum">\u2014</span><span class="wtitle">Not available</span></div>`;
+    if(w.type==='orientation')return`<div class="wbtn orient" onclick="openLesson('${wk}')"><span class="wnum">Week 1</span><span class="wtitle">Welcome Sunday</span><span class="wbible">Orientation</span></div>`;
+    if(w.type==='revision')return`<div class="wbtn rev" onclick="openLesson('${wk}')"><span class="wnum">Week ${i+1}</span><span class="wtitle">${w.title||'Revision Sunday'}</span><span class="wbible">Review</span></div>`;
+    return`<div class="wbtn" onclick="openLesson('${wk}')"><span class="wnum">Week ${i+1}</span><span class="wtitle">${w.title}</span><span class="wbible">${w.bible||''}</span></div>`;
+  }).join('');
+  show('sc-week');
+}
+function showWeeks(){S.wk=null;show('sc-week');}
+function openLesson(wk){
+  S.wk=wk;
+  const data=S.cls==='garden'?GARDEN[S.mon]:BEARERS[S.mon];
+  const w=data[wk];
+  document.getElementById('hdr-lesson').innerHTML=`${w.title||'Lesson'}<span>${S.cls==='garden'?"God\u2019s Little Garden":'Light Bearers'}</span>`;
+  document.getElementById('lesson-title').textContent=w.title||(w.type==='orientation'?'Welcome Sunday':'Lesson');
+  document.getElementById('lesson-bible').textContent=w.bible||'';
+  if(S.cls==='garden') renderGarden(w); else renderBearers(w);
+  show('sc-lesson');
+}
+function renderTabs(tabs){
+  document.getElementById('tab-bar').innerHTML=tabs.map((t,i)=>`<button class="tbtn${i===0?' active':''}" onclick="switchTab('${t.id}',this)">${t.label}</button>`).join('');
+  document.getElementById('tab-panels').innerHTML=tabs.map((t,i)=>`<div id="panel-${t.id}" class="tpanel${i===0?' active':''}"></div>`).join('');
+}
+function switchTab(id,btn){
+  document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tpanel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-'+id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function toggleAns(btn){
+  const box=btn.nextElementSibling;
+  const showing=box.style.display==='block';
+  box.style.display=showing?'none':'block';
+  btn.textContent=showing?'Show Answer':'Hide Answer';
+}
+
+// ══════════ GARDEN RENDER ══════════
+function renderGarden(w){
+  if(w.type==='orientation'){
+    document.getElementById('tab-bar').innerHTML='';
+    document.getElementById('tab-panels').innerHTML=`<div class="tpanel active"><div class="wrap"><div class="orient-card"><h3>\ud83c\udf31 Welcome to God\u2019s Little Garden!</h3><p>Today is a special Welcome Sunday! Meet the teachers, introduce the children to each other, and get everyone excited about the Bible stories ahead.<br><br>No lesson content today \u2014 just joy, connection, and celebration!</p></div></div></div>`;
+    return;
+  }
+  if(w.type==='revision'){
+    renderTabs([{id:'rev',label:'\ud83d\udcd6 Revision Plan'},{id:'th',label:'\ud83c\udfe0 Take-Home'}]);
+    document.getElementById('panel-rev').innerHTML=`<div class="wrap"><div class="rev-card"><h3>\ud83d\udcd6 ${w.title||'Revision Sunday'}</h3>${w.revTopics.map(t=>`<div class="rev-topic">\u2713 ${t}</div>`).join('')}</div><div class="card"><h3>\ud83c\udfae Revision Activities</h3>${w.activities.map(a=>`<div class="step-block"><div class="step-num">\u25b6</div><div class="step-body"><strong>${a.label}</strong><p>${a.desc}</p></div></div>`).join('')}</div></div>`;
+    document.getElementById('panel-th').innerHTML=buildTH(w.takehome);
+    return;
+  }
+  renderTabs([
+    {id:'tg',  label:'\ud83d\udc69\u200d\ud83c\udfeb Teacher Guide'},
+    {id:'col', label:'\ud83c\udfa8 Colouring Prompt (0\u20133)'},
+    {id:'act', label:'\u270f\ufe0f Activity Prompt (4\u20135)'},
+    {id:'th',  label:'\ud83c\udfe0 Take-Home'}
+  ]);
+  // Teacher Guide
+  document.getElementById('panel-tg').innerHTML=`<div class="wrap">
+    <div class="bigidea">\ud83d\udca1 ${w.bigidea}</div>
+    <div class="phrase-box"><span class="phrase-label">Repeat Phrase (say 3 times with actions!)</span><span class="phrase-text">\u201c${w.phrase}\u201d</span></div>
+    <div class="card"><h3>\ud83d\udcd6 Story Script</h3><div class="script-block">${w.script.map((s,i)=>`<div class="script-step"><strong style="color:var(--navy);font-size:.78rem;font-family:'Playfair Display',serif">Step ${i+1}</strong><br>${s.t||''}${s.cue?`<br><span class="action-cue">[ ${s.cue} ]</span>`:''}</div>`).join('')}</div></div>
+    <div class="card"><h3>\u2753 Check Understanding</h3>${w.comprehension.map(q=>`<div class="dq">${q}</div>`).join('')}</div>
+    <div class="card"><h3>\ud83d\udc9d Life Application</h3>${w.lifeapp.map(a=>`<div class="la-item"><div class="la-dot"></div><div><div class="la-k">${a.k}</div><div class="la-v">${a.v}</div></div></div>`).join('')}</div>
+    <button class="pbtn rose" onclick="printGardenTG()">🖨️ Print Teacher Guide</button>
+  </div>`;
+  // Colouring Prompt
+  const cid='col-prompt-'+Date.now();
+  document.getElementById('panel-col').innerHTML=`<div class="wrap">
+    <div class="info-box">\ud83c\udfa8 Copy the prompt below and paste it into <strong>ChatGPT</strong> (or any AI image tool like DALL\u00b7E, Canva AI, or Adobe Firefly) to generate a ready-to-print colouring page for ages 0\u20133.</div>
+    <div class="prompt-card">
+      <h3>\ud83c\udfa8 Colouring Page Prompt</h3>
+      <p class="prompt-desc">Tap \u201cCopy Prompt\u201d, open ChatGPT (or your preferred tool), paste the prompt, and generate the image. Print it A4 and hand it out!</p>
+      <button class="copy-btn" onclick="copyPrompt('${cid}',this)">\ud83d\udccb Copy Prompt <span class="copy-confirm" id="cc-${cid}">\u2713 Copied!</span></button>
+      <div class="prompt-box" id="${cid}">${w.coloringPrompt||'Prompt not available for this lesson.'}</div>
+    </div>
+    <div class="info-box" style="margin-top:4px">\ud83d\udca1 <strong>Tip:</strong> In ChatGPT, use the prompt with the \ud83d\uddbc\ufe0f image generation feature (DALL\u00b7E). In Canva, paste into \u201cAI Image Generator.\u201d The prompt is written to produce black-and-white, child-friendly colouring page art.</div>
+  </div>`;
+  // Activity Prompt
+  const aid='act-prompt-'+Date.now();
+  document.getElementById('panel-act').innerHTML=`<div class="wrap">
+    <div class="info-box">\u270f\ufe0f Copy the prompt below and paste it into <strong>ChatGPT</strong> (or any AI image tool) to generate a ready-to-print activity worksheet for ages 4\u20135.</div>
+    <div class="prompt-card">
+      <h3>\u270f\ufe0f Activity Worksheet Prompt</h3>
+      <p class="prompt-desc">Tap \u201cCopy Prompt\u201d, open ChatGPT, paste the prompt, and generate the worksheet image. Print it A4 for class!</p>
+      <button class="copy-btn" onclick="copyPrompt('${aid}',this)">\ud83d\udccb Copy Prompt <span class="copy-confirm" id="cc-${aid}">\u2713 Copied!</span></button>
+      <div class="prompt-box" id="${aid}">${w.activityPrompt||'Prompt not available for this lesson.'}</div>
+    </div>
+    <div class="info-box" style="margin-top:4px">\ud83d\udca1 <strong>Tip:</strong> These prompts are designed for ChatGPT image generation, Canva AI, or DALL\u00b7E. If one tool gives imperfect results, try another \u2014 the prompts work best with DALL\u00b7E 3 or Canva\u2019s text-to-image.</div>
+  </div>`;
+  // Take-Home
+  document.getElementById('panel-th').innerHTML=buildTH(w.takehome);
+}
+
+// ══════════ BEARERS RENDER ══════════
+function renderBearers(w){
+  if(w.type==='orientation'){
+    document.getElementById('tab-bar').innerHTML='';
+    document.getElementById('tab-panels').innerHTML=`<div class="tpanel active"><div class="wrap"><div class="orient-card"><h3>\ud83d\udca1 Welcome to Light Bearers!</h3><p>Today is orientation \u2014 welcome new and returning children, introduce the year\u2019s Bible journey from Genesis 11 through the Old Testament!<br><br>Share the term\u2019s memory verse, hand out class notebooks, and pray together as a class.</p></div></div></div>`;
+    return;
+  }
+  renderTabs([
+    {id:'tg',    label:'\ud83d\udc69\u200d\ud83c\udfeb Teacher Guide'},
+    {id:'vocab', label:'\ud83d\udcda Vocabulary'},
+    {id:'notes', label:'\ud83d\udcdd Class Notes'},
+    {id:'cw',    label:'\u270f\ufe0f Classwork'},
+    {id:'th',    label:'\ud83c\udfe0 Take-Home'}
+  ]);
+  // Teacher Guide
+  document.getElementById('panel-tg').innerHTML=`<div class="wrap">
+    <div class="verse-box"><p class="verse-text">"${w.memVerse.text}"</p><p class="verse-ref">\u2014 ${w.memVerse.ref}</p></div>
+    <div class="card"><h3>\ud83c\udfaf Learning Objectives</h3>${w.objectives.map(o=>`<div class="obj"><span class="obj-dot">\u2713</span>${o}</div>`).join('')}</div>
+    <div class="card"><h3>\ud83d\udee0\ufe0f Preparation</h3><p style="font-size:.86rem;color:var(--mid);line-height:1.7">${w.prep}</p></div>
+    <div class="card"><h3>\ud83d\udd25 Opening Hook</h3><div class="script-block">${w.hook}</div></div>
+    <div class="card"><h3>\ud83d\udcd6 Bible Reading \u2014 Stop &amp; Discuss</h3>${w.bibleStops.map(s=>`<div class="stop-block"><span class="stop-label">Stop after ${s.after}</span>${s.q}</div>`).join('')}</div>
+    <div class="card"><h3>\ud83c\udfd7\ufe0f Teaching Steps</h3>${w.steps.map(s=>`<div class="step-block"><div class="step-num">${s.n}</div><div class="step-body"><strong>${s.title}</strong><p>${s.body}</p><div class="step-discuss">\ud83d\udcac Discuss: ${s.discuss}</div><div class="step-ex">\ud83d\udccc Example: ${s.ex}</div></div></div>`).join('')}</div>
+    <div class="card"><h3>\ud83d\udde3\ufe0f Discussion Questions</h3>${w.discussion.map((q,i)=>`<div class="dq"><strong>${i+1}.</strong> ${q}</div>`).join('')}</div>
+    <div class="card"><h3>\ud83c\udf0d Life Application</h3>${w.lifeapp.map(a=>`<div class="la-item"><div class="la-dot"></div><div><div class="la-k">${a.k}</div><div class="la-v">${a.v}</div></div></div>`).join('')}</div>
+    <button class="pbtn" onclick="printBearersTG()">🖨️ Print Teacher Guide</button>
+  </div>`;
+  // Vocabulary
+  document.getElementById('panel-vocab').innerHTML=`<div class="wrap">
+    <div class="card"><h3>\ud83d\udcda Vocabulary \u2014 ${w.title}</h3>${w.vocab.map(v=>`<div class="vocab-row"><div class="vocab-word">${v.w}</div><div class="vocab-def">${v.d}</div></div>`).join('')}</div>
+    <div class="verse-box"><p class="verse-text">"${w.memVerse.text}"</p><p class="verse-ref">\u2014 ${w.memVerse.ref}</p></div>
+    <button class="pbtn" onclick="printVocab()">🖨️ Print Vocabulary Sheet</button>
+  </div>`;
+  // Class Notes — bullet point lesson notes
+  document.getElementById('panel-notes').innerHTML=`<div class="wrap">
+    <div class="info-box">\ud83d\udcdd These are the lesson notes for children to write in their notebooks. Read each point aloud, explain it, then give children time to copy into their notes.</div>
+    <div class="card"><h3>\ud83d\udcdd Class Notes \u2014 ${w.title}</h3>
+      <p style="font-size:.78rem;color:var(--mid);margin-bottom:14px;font-style:italic">\ud83d\udcd6 ${w.bible}</p>
+      ${w.classNotes.map((n,i)=>`<div class="cn-note">
+        <div class="cn-bullet">${i+1}.</div>
+        <div>
+          <div class="cn-text" style="font-weight:800;color:var(--navy);font-family:'Playfair Display',serif">${n.point}</div>
+          <div class="cn-sub">${(n.subs||[]).map(s=>`<div class="cn-sub-item"><span class="cn-sub-bullet">\u2022</span><span>${s}</span></div>`).join('')}</div>
+        </div>
+      </div>`).join('')}
+      <div class="div"></div>
+      <div class="verse-box" style="margin-top:12px"><p class="verse-text">"${w.memVerse.text}"</p><p class="verse-ref">\u2014 ${w.memVerse.ref}</p></div>
+    </div>
+    <button class="pbtn" onclick="printNotes()">🖨️ Print Class Notes</button>
+  </div>`;
+  // Classwork — unified for ages 6-10
+  document.getElementById('panel-cw').innerHTML=`<div class="wrap">
+    <div class="info-box">\u270f\ufe0f Classwork for all ages (6\u201310) \u2014 Print one per child. Mix of question types to reinforce today\u2019s lesson.</div>
+    <div class="card"><h3>Classwork \u2014 ${w.title}</h3>
+      <p style="font-size:.78rem;color:var(--mid);margin-bottom:13px;font-style:italic">Name: ___________________________ &nbsp; Date: _______________</p>
+      ${(w.classwork||[]).map((q,i)=>{
+        const typeName=q.type==='mc'?'Multiple Choice':q.type==='tf'?'True or False':q.type==='fill'?'Fill in the Blank':'Open Question';
+        return `<div class="cw-q">
+          <div class="cw-qn"><span>Q${i+1}</span><span class="cw-type-badge">${typeName}</span></div>
+          <div class="cw-qt">${q.q.replace(/\n/g,'<br>')}</div>
+          ${q.opts?`<div class="cw-opts">${q.opts.map((o,j)=>`<div class="cw-opt"><span class="cw-opt-letter">${String.fromCharCode(97+j)})</span><span>${o}</span></div>`).join('')}</div>`:''}
+          ${q.type==='open'||q.type==='fill'?'<div class="write-line"></div><div class="write-line"></div>':''}
+          ${q.ans?`<button class="ans-btn" onclick="toggleAns(this)">Show Answer</button><div class="ans-box">${q.ans}</div>`:''}
+        </div>`;
+      }).join('')}
+    </div>
+    <button class="pbtn teal" onclick="printCW()">🖨️ Print Classwork</button>
+  </div>`;
+  // Take-Home
+  document.getElementById('panel-th').innerHTML=buildTH(w.takehome,'navy');
+}
+
+// ══════════ SHARED TAKE-HOME BUILDER ══════════
+function buildTH(th){
+  return `<div class="wrap">
+    <div class="info-box">\ud83d\udce4 Print or share this with parents each Sunday.</div>
+    <div class="th-section"><h4>\ud83d\udcd6 What We Learnt Today</h4><ul>${(th.story||[]).map(s=>`<li>${s}</li>`).join('')}</ul></div>
+    <div class="th-section"><h4>\ud83d\udcac Talk About This at Home</h4><p>${th.question}</p></div>
+    <div class="th-section"><h4>\ud83c\udfc3 This Week\u2019s Activity</h4><p>${th.task}</p></div>
+    <div class="th-section"><h4>\ud83d\ude4f Family Prayer</h4><div class="prayer-box">${th.prayer}</div></div>
+    <button class="pbtn rose" onclick="printTH()">🖨️ Print Take-Home Notes</button>
+  </div>`;
+}
+
+// ══════════ COPY PROMPT TO CLIPBOARD ══════════
+function copyPrompt(id,btn){
+  const el=document.getElementById(id);
+  if(!el)return;
+  const text=el.innerText||el.textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    const conf=document.getElementById('cc-'+id);
+    if(conf){conf.style.display='inline';setTimeout(()=>conf.style.display='none',2500);}
+  }).catch(()=>{
+    const ta=document.createElement('textarea');
+    ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+    document.body.appendChild(ta);ta.select();document.execCommand('copy');
+    document.body.removeChild(ta);
+    const conf=document.getElementById('cc-'+id);
+    if(conf){conf.style.display='inline';setTimeout(()=>conf.style.display='none',2500);}
+  });
+}
+
+
+// ══════════ PRINT FUNCTIONS ══════════
+function popPrint(html){
+  const w=window.open('','_blank','width=820,height=1060');
+  if(!w){alert('Please allow pop-ups from this site to enable printing.');return;}
+  w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Nunito',sans-serif;padding:26px;background:#fff;color:#111;max-width:780px;margin:0 auto}
+  h1,h2,h3,h4,strong.head{font-family:'Playfair Display',serif}
+  h1{font-size:22px;margin-bottom:14px;color:#1B3A6B}
+  h2{font-size:16px;margin-bottom:8px;margin-top:18px;color:#1B3A6B;border-bottom:1.5px solid #eee;padding-bottom:4px}
+  h3{font-size:14px;margin-bottom:6px}
+  p,li,td{font-size:12.5px;line-height:1.75;margin-bottom:3px}
+  ul{padding-left:18px;margin-bottom:10px}
+  .block{background:#f9f6ee;border-radius:7px;padding:11px;margin-bottom:10px;font-size:12.5px;line-height:1.75}
+  .verse{background:#1a7a6a;color:#fff;border-radius:7px;padding:12px;margin-bottom:10px}
+  .verse p{font-style:italic;font-size:12.5px;line-height:1.7}
+  .big{background:#1B3A6B;color:#fff;border-radius:7px;padding:12px;margin-bottom:10px;font-weight:700;font-size:12.5px;line-height:1.6}
+  .phrase{background:#B84060;color:#fff;border-radius:7px;padding:10px;text-align:center;margin-bottom:10px}
+  .phrase .pl{font-size:10px;opacity:.85;text-transform:uppercase;letter-spacing:1px}
+  .phrase .pt{font-family:'Playfair Display',serif;font-size:15px;font-weight:700}
+  .cue{background:#F0A820;color:#4a2800;padding:1px 7px;border-radius:4px;font-size:11px;font-weight:700}
+  .cn-section{margin-bottom:12px}
+  .cn-head{font-family:'Playfair Display',serif;font-weight:700;color:#1B3A6B;font-size:13px;margin-bottom:4px}
+  .cn-sub{padding-left:14px;margin-bottom:2px;font-size:12px;line-height:1.7}
+  .cw-q{background:#f5f3ed;border-radius:6px;padding:10px;margin-bottom:9px}
+  .cw-qn{font-size:10px;font-weight:800;color:#1B3A6B;text-transform:uppercase;margin-bottom:3px}
+  .write-line{border-bottom:1px solid #ccc;height:24px;margin:4px 0}
+  .ans-btn,.ans-box{display:none}
+  .prayer{background:#ffeef3;border-left:4px solid #B84060;padding:10px;font-style:italic;border-radius:0 7px 7px 0;font-size:12px;line-height:1.7}
+  @media print{@page{size:A4 portrait;margin:15mm}}
+  </style></head><body>${html}
+  <script>window.onload=function(){setTimeout(function(){window.print();},600);}<\/script>
+  </body></html>`);
+  w.document.close();
+}
+
+function printGardenTG(){
+  const el=document.getElementById('panel-tg');if(!el)return;
+  let h=`<h1>Teacher Guide \u2014 God\u2019s Little Garden</h1>`;
+  const bi=el.querySelector('.bigidea');if(bi)h+=`<div class="big">${bi.textContent}</div>`;
+  const ph=el.querySelector('.phrase-text');if(ph)h+=`<div class="phrase"><div class="pl">Repeat Phrase (say 3 times with actions!)</div><div class="pt">\u201c${ph.textContent}\u201d</div></div>`;
+  h+='<h2>Story Script</h2>';
+  el.querySelectorAll('.script-step').forEach((s,i)=>{
+    const cue=s.querySelector('.action-cue');
+    const text=s.childNodes[2]?.textContent?.trim()||'';
+    h+=`<div class="block"><strong>Step ${i+1}:</strong> ${text} ${cue?`<span class="cue">[ ${cue.textContent.trim()} ]</span>`:''}`;h+='</div>';
+  });
+  h+='<h2>Check Understanding</h2>';
+  el.querySelectorAll('.dq').forEach(q=>h+=`<div class="block">${q.textContent.trim()}</div>`);
+  h+='<h2>Life Application</h2>';
+  el.querySelectorAll('.la-item').forEach(a=>{
+    const k=a.querySelector('.la-k')?.textContent||'';
+    const v=a.querySelector('.la-v')?.textContent||'';
+    h+=`<div class="block"><strong>${k}</strong> ${v}</div>`;
+  });
+  popPrint(h);
+}
+
+function printBearersTG(){
+  const el=document.getElementById('panel-tg');if(!el)return;
+  let h='<h1>Teacher Guide \u2014 Light Bearers</h1>';
+  const v=el.querySelector('.verse-box');
+  if(v)h+=`<div class="verse"><p>${v.querySelector('.verse-text')?.textContent||''}</p><p><strong>${v.querySelector('.verse-ref')?.textContent||''}</strong></p></div>`;
+  h+='<h2>Objectives</h2>';el.querySelectorAll('.obj').forEach(o=>h+=`<div class="block">\u2713 ${o.textContent.trim()}</div>`);
+  const cards=el.querySelectorAll('.card');
+  cards.forEach(card=>{
+    const title=card.querySelector('h3')?.textContent||'';
+    h+=`<h2>${title}</h2>`;
+    card.querySelectorAll('.step-block').forEach(s=>{
+      h+=`<div class="block"><strong>${s.querySelector('.step-body strong')?.textContent||''}</strong><br>${s.querySelector('.step-body p')?.textContent||''}<br><em>Discuss: ${s.querySelector('.step-discuss')?.textContent?.replace('💬 Discuss: ','')||''}</em></div>`;
+    });
+    card.querySelectorAll('.stop-block').forEach(s=>{
+      h+=`<div class="block"><strong>${s.querySelector('.stop-label')?.textContent||''}</strong> ${(s.childNodes[2]?.textContent||'').trim()}</div>`;
+    });
+    card.querySelectorAll('.dq').forEach((q,i)=>h+=`<div class="block"><strong>${i+1}.</strong> ${q.textContent.trim()}</div>`);
+    card.querySelectorAll('.la-item').forEach(a=>h+=`<div class="block"><strong>${a.querySelector('.la-k')?.textContent||''}</strong> ${a.querySelector('.la-v')?.textContent||''}</div>`);
+    const pPre=card.querySelector('p');if(pPre&&!card.querySelector('.step-block'))h+=`<div class="block">${pPre.textContent.trim()}</div>`;
+    const sb=card.querySelector('.script-block');if(sb)h+=`<div class="block">${sb.textContent.trim()}</div>`;
+  });
+  popPrint(h);
+}
+
+function printVocab(){
+  const el=document.getElementById('panel-vocab');if(!el)return;
+  let h='<h1>Vocabulary</h1>';
+  el.querySelectorAll('.vocab-row').forEach(r=>{
+    h+=`<div class="block"><strong>${r.querySelector('.vocab-word')?.textContent||''}</strong> \u2014 ${r.querySelector('.vocab-def')?.textContent||''}</div>`;
+  });
+  const v=el.querySelector('.verse-box');
+  if(v)h+=`<h2>Memory Verse</h2><div class="verse"><p>${v.querySelector('.verse-text')?.textContent||''}</p><p><strong>${v.querySelector('.verse-ref')?.textContent||''}</strong></p></div>`;
+  popPrint(h);
+}
+
+function printNotes(){
+  const el=document.getElementById('panel-notes');if(!el)return;
+  let h='<h1>Class Notes</h1>';
+  el.querySelectorAll('.cn-note').forEach((n,i)=>{
+    const head=n.querySelector('.cn-text')?.textContent||'';
+    const subs=Array.from(n.querySelectorAll('.cn-sub-item')).map(s=>s.querySelector('span:last-child')?.textContent||'');
+    h+=`<div class="cn-section"><div class="cn-head">${i+1}. ${head}</div>${subs.map(s=>`<div class="cn-sub">\u2022 ${s}</div>`).join('')}</div>`;
+  });
+  const v=el.querySelector('.verse-box');
+  if(v)h+=`<h2>Memory Verse</h2><div class="verse"><p>${v.querySelector('.verse-text')?.textContent||''}</p><p><strong>${v.querySelector('.verse-ref')?.textContent||''}</strong></p></div>`;
+  h+=`<div style="margin-top:16px;padding:10px;border:1px solid #eee;border-radius:7px;font-size:11px;color:#888">Name: _______________________________________ &nbsp;&nbsp; Date: _________________</div>`;
+  popPrint(h);
+}
+
+function printCW(){
+  const el=document.getElementById('panel-cw');if(!el)return;
+  let h='<h1>Classwork</h1>';
+  h+=`<p style="margin-bottom:14px">Name: _______________________________________ &nbsp;&nbsp; Date: _________________</p>`;
+  el.querySelectorAll('.cw-q').forEach(q=>{
+    const qn=q.querySelector('.cw-qn')?.textContent||'';
+    const qt=q.querySelector('.cw-qt')?.innerHTML?.replace(/<br>/g,'\n')||'';
+    const opts=Array.from(q.querySelectorAll('.cw-opt')).map(o=>o.textContent.trim());
+    h+=`<div class="cw-q"><div class="cw-qn">${qn}</div><p style="white-space:pre-wrap">${qt.replace(/<[^>]*>/g,'')}</p>`;
+    if(opts.length)opts.forEach(o=>h+=`<p style="padding-left:12px">${o}</p>`);
+    h+=`<div class="write-line"></div><div class="write-line"></div></div>`;
+  });
+  popPrint(h);
+}
+
+function printTH(){
+  const el=document.getElementById('panel-th');if(!el)return;
+  let h='<h1>Take-Home Notes</h1>';
+  el.querySelectorAll('.th-section').forEach(s=>{
+    const title=s.querySelector('h4')?.textContent||'';
+    const ul=s.querySelector('ul');
+    const p=s.querySelector('p');
+    h+=`<h2>${title}</h2>`;
+    if(ul)h+=`<ul>${Array.from(ul.querySelectorAll('li')).map(li=>`<li>${li.textContent}</li>`).join('')}</ul>`;
+    if(p&&!ul)h+=`<div class="block">${p.textContent}</div>`;
+  });
+  const pb=el.querySelector('.prayer-box');
+  if(pb)h+=`<h2>Family Prayer</h2><div class="prayer">${pb.textContent}</div>`;
+  popPrint(h);
+}
+</script>
+</body>
+</html>
